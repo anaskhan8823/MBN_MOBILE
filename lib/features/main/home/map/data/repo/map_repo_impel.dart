@@ -35,7 +35,8 @@ class MapRepoImpel implements MapRepo {
   Future<Either<Failure, List<UserModel>>> getRepresentativeForMap(
       {String? text}) async {
     try {
-      final response = await DioHelper.get(MAP_REPRESENTATIVE);
+      final response =
+          await DioHelper.get(MAP_REPRESENTATIVE, parameter: {'search': text});
       if (response.isSuccess) {
         final fetchedStores = List<UserModel>.from(
             (response.data['data'] ?? []).map((e) => UserModel.fromJson(e)));

@@ -1,7 +1,12 @@
 import 'package:dalil_2020_app/core/app_assets.dart';
 import 'package:dalil_2020_app/core/cache/cache_helper.dart';
+import 'package:dalil_2020_app/core/helper/app_navigator.dart';
 import 'package:dalil_2020_app/core/style/text_style.dart';
+import 'package:dalil_2020_app/features/delivery_user_view/chat/data/model/contact_model.dart';
+import 'package:dalil_2020_app/features/delivery_user_view/chat/data/repo/chat_repo_impel.dart';
 import 'package:dalil_2020_app/features/main/controller/store_and_product_cubit/add_store_cubit.dart';
+import 'package:dalil_2020_app/features/main/home/contact/presentation/controller/manager_chat_cubit.dart';
+import 'package:dalil_2020_app/features/main/home/contact/presentation/view/details_of_chat.dart';
 import 'package:dalil_2020_app/features/widgets/comments_product_section.dart';
 import 'package:dalil_2020_app/features/widgets/customOutlineButton.dart';
 import 'package:dalil_2020_app/models/product_model.dart';
@@ -302,13 +307,25 @@ class _ProductDetailsUserViewState extends State<ProductDetailsUserView> {
                         ),
 
                         // Right side: Chat button
-                        SizedBox(
-                          height: 35.h,
-                          width: MediaQuery.of(context).size.width * 0.22,
-                          child: CustomOutlinedButton(
-                            side: BorderSide(color: AppColors.primary),
-                            labelColor: AppColors.primary,
-                            label: "change.chat".tr(),
+                        GestureDetector(
+                          onTap: () {
+                            // AppNavigator.push(BlocProvider(
+                            //   create: (_) =>
+                            //       ManagerChatCubit(chatRepo: ChatRepoImpel())
+                            //         ..saveSelectedContact(ContactFromListModel(
+                            //             id: widget.productId,
+                            //             contactName: widget.sellername)),
+                            //   child: DetailsOfChat(),
+                            // ));
+                          },
+                          child: SizedBox(
+                            height: 35.h,
+                            width: MediaQuery.of(context).size.width * 0.22,
+                            child: CustomOutlinedButton(
+                              side: BorderSide(color: AppColors.primary),
+                              labelColor: AppColors.primary,
+                              label: "change.chat".tr(),
+                            ),
                           ),
                         ),
                       ],

@@ -6,14 +6,14 @@ class ProfileProductiveFamiliesModel {
   int? totalViews;
   int? order;
 
-  ProfileProductiveFamiliesModel(
-      {this.profileName,
-        this.profilePicture,
-        this.overallStoreRating,
-        this.totalProducts,
-        this.totalViews,
-        this.order,
-       });
+  ProfileProductiveFamiliesModel({
+    this.profileName,
+    this.profilePicture,
+    this.overallStoreRating,
+    this.totalProducts,
+    this.totalViews,
+    this.order,
+  });
 
   ProfileProductiveFamiliesModel.fromJson(Map<String, dynamic> json) {
     profileName = json['profile_name'];
@@ -21,7 +21,7 @@ class ProfileProductiveFamiliesModel {
     overallStoreRating = json['overall_store_rating'];
     totalProducts = json['total_products'];
     totalViews = json['total_views'];
-    order = json['order'];
+    order = json['total_orders'];
   }
 
   Map<String, dynamic> toJson() {
@@ -31,7 +31,7 @@ class ProfileProductiveFamiliesModel {
     data['overall_store_rating'] = overallStoreRating;
     data['total_products'] = totalProducts;
     data['total_views'] = totalViews;
-    data['order'] = order;
+    data['total_orders'] = order;
     return data;
   }
 }

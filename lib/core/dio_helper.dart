@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:dalil_2020_app/core/errors/failure.dart';
 import 'package:dio/dio.dart';
+import 'package:path/path.dart';
 
 import 'cache/cache_helper.dart';
 import 'package:logger/logger.dart';

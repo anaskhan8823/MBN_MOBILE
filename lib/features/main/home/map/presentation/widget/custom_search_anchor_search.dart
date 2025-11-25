@@ -10,35 +10,41 @@ class CustomSearchAnchorSearch extends StatelessWidget {
   const CustomSearchAnchorSearch({
     super.key,
     this.color,
+    this.representativeList,
   });
+
   final Color? color;
+  final bool? representativeList; // <-- FIXED
 
   @override
   Widget build(BuildContext context) {
     return Container(
       height: 45,
       decoration: BoxDecoration(
-          border: Border.all(color: color ?? AppColors.primary, width: 2),
-          borderRadius: const BorderRadius.all(Radius.circular(18))),
+        border: Border.all(color: color ?? AppColors.primary, width: 2),
+        borderRadius: const BorderRadius.all(Radius.circular(18)),
+      ),
       child: SearchAnchor(
         builder: (context, controller) => SearchBar(
           hintText: "navHome.search".tr(),
           hintStyle: WidgetStatePropertyAll(
             kTextStyle16Orange.copyWith(
-                fontSize: 14, color: color ?? AppColors.primary),
-          ),
-          trailing: [
-            Icon(
-              Icons.search,
+              fontSize: 14,
               color: color ?? AppColors.primary,
             ),
+          ),
+          trailing: [
+            Icon(Icons.search, color: color ?? AppColors.primary),
           ],
           onSubmitted: (val) {
-            context.read<MapStoresCubit>().getStoresList(text: val);
+            representativeList!
+                ? context.read<MapStoresCubit>().getStoresList(text: val)
+                : context
+                    .read<MapStoresCubit>()
+                    .getRepresentativeList(text: val);
           },
         ),
-        suggestionsBuilder:
-            (BuildContext context, SearchController controller) {
+        suggestionsBuilder: (context, controller) {
           return Future.delayed(Duration.zero);
         },
       ),

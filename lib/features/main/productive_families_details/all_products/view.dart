@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:dalil_2020_app/core/helper/app_navigator.dart';
 import 'package:dalil_2020_app/core/shared/widgets/auth_appbar.dart';
 import 'package:dalil_2020_app/core/style/app_colors.dart';
