@@ -30,9 +30,12 @@ class ChatsView extends StatelessWidget {
             preferredSize: const Size.fromHeight(40.0),
             child: Padding(
               padding: const EdgeInsets.only(bottom: 10, left: 15, right: 15),
-              child: CustomSearchAnchor(onChanged: (val) {
-                context.read<ManagerChatCubit>().getContactFromSearch(val);
-              }),
+              child: CustomSearchAnchor(
+                onChanged: (val) {
+                  context.watch<ManagerChatCubit>().getContactFromSearch(val);
+                },
+                color: colorOfAppBarTitle,
+              ),
             ),
           ),
           heightAppBar: 100,
@@ -49,43 +52,43 @@ class ChatsView extends StatelessWidget {
                   // height: MediaQuery.of(context).size.height / 2.3,
                   // fit: FlexFit.loose,
                   child: RefreshLoadmore(
-                    onRefresh: () async {
-                      await context
-                          .read<ManagerChatCubit>()
-                          .getHistoryOfContact(0);
-                    },
-                    onLoadmore: () async {
-                      await Future.delayed(Duration(seconds: 1), () {
-                        context
-                            .read<ManagerChatCubit>()
-                            .getHistoryOfContact(null);
-                      });
-                    },
-                    isLastPage: false,
-                    loadingWidget: CupertinoActivityIndicator(),
-                    child: (cubit.state.tempHistoryOfChat.isEmpty)
-                        ? Container(
-                            height: 100.h,
-                            alignment: Alignment.center,
-                            child: Text(
-                              context.tr('myProfile.empty_messages'),
-                              textAlign: TextAlign.center,
-                            ),
-                          )
-                        : ListView.separated(
-                            controller: paginationScrollController,
-                            itemCount: cubit.state.tempHistoryOfChat.length,
-                            shrinkWrap: true,
-                            // physics: NeverScrollableScrollPhysics(),
-                            itemBuilder: (BuildContext context, int index) {
-                              return ItemOfContactChat(
-                                data: cubit.state.tempHistoryOfChat[index],
-                              );
-                            },
-                            separatorBuilder: (_, __) => Divider(
-                                color: Colors.blueGrey.shade800, height: 1),
-                          ),
-                  ),
+                      onRefresh: () async {
+                        await context
+                            .watch<ManagerChatCubit>()
+                            .getHistoryOfContact(0);
+                      },
+                      onLoadmore: () async {
+                        await Future.delayed(Duration(seconds: 1), () {
+                          context
+                              .watch<ManagerChatCubit>()
+                              .getHistoryOfContact(null);
+                        });
+                      },
+                      isLastPage: false,
+                      loadingWidget: CupertinoActivityIndicator(),
+                      child: (cubit.state.tempHistoryOfChat.isEmpty)
+                          ? Container(
+                              height: 100.h,
+                              alignment: Alignment.center,
+                              child: Text(
+                                context.tr('myProfile.empty_messages'),
+                                textAlign: TextAlign.center,
+                              ),
+                            )
+                          : ListView.separated(
+                              controller: paginationScrollController,
+                              itemCount: cubit.state.tempHistoryOfChat.length,
+                              shrinkWrap: true,
+                              reverse: true, // newest messages on top
+                              itemBuilder: (BuildContext context, int index) {
+                                return ItemOfContactChat(
+                                  color: colorOfAppBarTitle,
+                                  data: cubit.state.tempHistoryOfChat[index],
+                                );
+                              },
+                              separatorBuilder: (_, __) => Divider(
+                                  color: Colors.blueGrey.shade800, height: 1),
+                            )),
                 );
         }));
   }

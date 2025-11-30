@@ -67,18 +67,26 @@ class CustomDrawer extends StatelessWidget {
                               color: color,
                             ),
                             const SizedBox(width: 12),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(CachHelper.userName!.split(' ').first,
+                            Center(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    CachHelper.userName!.split(' ').first,
                                     style: kTextStyle20White.copyWith(
-                                        color: color ?? AppColors.primary)),
-                                Text(CachHelper.role!.replaceAll("_", " "),
+                                      color: color ?? AppColors.primary,
+                                    ),
+                                  ),
+                                  Text(
+                                    CachHelper.role!.replaceAll("_", " "),
                                     style: kTextStyle20White.copyWith(
-                                        color: AppColors.whiteAndBlackColor,
-                                        fontSize: 12.sp)),
-                              ],
-                            )
+                                      color: AppColors.whiteAndBlackColor,
+                                      fontSize: 12.sp,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
                           ],
                         )
                       : Row(

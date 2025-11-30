@@ -4,7 +4,7 @@ import '../../../delivery_user_view/home_delivery_user/data/model/paginate_model
 class CommentsModel {
   int? id;
   String? content;
-  int? postId;
+  String? postId;
   User? user;
   bool? canEdit;
   String? createdAt;

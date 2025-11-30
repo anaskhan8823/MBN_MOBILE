@@ -61,6 +61,7 @@ class PostsRepoImpel implements PostsRepo {
         'page': page,
       });
       if (response.isSuccess) {
+        print(response.data['data']);
         return right(CommentsWithPagination.fromJson(response.data['data']));
       } else {
         return left(ServerFailure.fromResponse(response));

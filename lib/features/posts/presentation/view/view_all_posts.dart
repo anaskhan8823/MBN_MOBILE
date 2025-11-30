@@ -52,34 +52,86 @@ class ViewAllPosts extends StatelessWidget {
             final isEn = context.locale.languageCode == 'en';
             return Container(
               width: MediaQuery.of(context).size.width,
-              height: 60.h,
-              padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 20),
+              height: 50.h,
+              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
               color: AppColors.primaryDark.withOpacity(.2),
-              child: ListView.separated(
-                padding: EdgeInsets.zero,
-                // controller: paginationScrollController,
-                scrollDirection: Axis.horizontal,
-                itemCount: cubit.state.listOfCategory.length,
-                shrinkWrap: true,
-                itemBuilder: (BuildContext context, int index) {
-                  return GestureDetector(
-                    onTap: () async {
-                      await context.read<PostsCubit>().getPosts(
-                          0, null, cubit.state.listOfCategory[index].id);
-                    },
-                    child: Text(
-                      isEn
-                          ? (cubit.state.listOfCategory[index].name?.en ?? '')
-                          : (cubit.state.listOfCategory[index].name?.ar ?? ''),
-                      style: TextStyle(color: AppColors.primaryLight),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  // List of Categories
+                  Expanded(
+                    child: ListView.separated(
+                      padding: EdgeInsets.zero,
+                      scrollDirection: Axis.horizontal,
+                      itemCount: cubit.state.listOfCategory.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        return GestureDetector(
+                          onTap: () async {
+                            await context.read<PostsCubit>().getPosts(
+                                0, null, cubit.state.listOfCategory[index].id);
+                          },
+                          child: Center(
+                            child: Text(
+                              isEn
+                                  ? (cubit.state.listOfCategory[index].name
+                                          ?.en ??
+                                      '')
+                                  : (cubit.state.listOfCategory[index].name
+                                          ?.ar ??
+                                      ''),
+                              style: TextStyle(color: AppColors.primaryLight),
+                            ),
+                          ),
+                        );
+                      },
+                      separatorBuilder: (BuildContext context, int index) {
+                        return const SizedBox(width: 10);
+                      },
                     ),
-                  );
-                },
-                separatorBuilder: (BuildContext context, int index) {
-                  return const SizedBox(
-                    width: 10,
-                  );
-                },
+                  ),
+
+                  // Add New Post Button
+                  InkWell(
+                    onTap: () {
+                      AppNavigator.push(MultiBlocProvider(
+                        providers: [
+                          BlocProvider(
+                            create: (_) => UploadPhotoCubit(),
+                          ),
+                        ],
+                        child: BlocProvider.value(
+                            value: context.read<PostsCubit>(),
+                            child: CreatePosts()),
+                      ));
+                    },
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 10, vertical: 5),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(16),
+                        border:
+                            Border.all(color: AppColors.primaryLight, width: 2),
+                      ),
+                      child: Row(
+                        children: [
+                          const Icon(
+                            Icons.add,
+                            color: AppColors.primaryLight,
+                          ),
+                          const SizedBox(width: 10),
+                          Text(
+                            context.tr("posts.Add_new_post"),
+                            style: TextStyle(
+                              color: AppColors.primaryLight,
+                              fontSize: 12.sp,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
               ),
             );
           }),
@@ -89,45 +141,6 @@ class ViewAllPosts extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              if (context.locale.languageCode == 'en') ...{const SizedBox()},
-              InkWell(
-                onTap: () {
-                  AppNavigator.push(MultiBlocProvider(
-                      providers: [
-                        BlocProvider(
-                          create: (_) => UploadPhotoCubit(),
-                        ),
-                      ],
-                      child: BlocProvider.value(
-                          value: context.read<PostsCubit>(),
-                          child: CreatePosts())));
-                },
-                child: Container(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(16),
-                      border:
-                          Border.all(color: AppColors.primaryLight, width: 2)),
-                  child: Row(
-                    children: [
-                      const Icon(
-                        Icons.add,
-                        color: AppColors.primaryLight,
-                      ),
-                      const SizedBox(
-                        width: 10,
-                      ),
-                      Text(
-                        context.tr("posts.Add_new_post"),
-                        style: TextStyle(
-                            color: AppColors.iconPrimaryOfTheme2,
-                            fontSize: 12.sp),
-                      )
-                    ],
-                  ),
-                ),
-              ),
               if (context.locale.languageCode != 'en') ...{const SizedBox()},
             ],
           ),

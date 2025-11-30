@@ -50,7 +50,7 @@ class ItemOfComment extends StatelessWidget {
                     height: AppSize.getHeight(35),
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
-                      border: Border.all(color: AppColors.textLabelSelected),
+                      border: Border.all(color: AppColors.buttonPrimaryLight),
                       image: DecorationImage(
                           image: AssetImage(AppIcons.choosePhoto),
                           fit: BoxFit.fitWidth),
@@ -61,6 +61,7 @@ class ItemOfComment extends StatelessWidget {
               width: 15,
             ),
             Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
                   data.user?.name ?? '',

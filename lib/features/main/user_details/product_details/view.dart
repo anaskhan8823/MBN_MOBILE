@@ -7,9 +7,11 @@ import 'package:dalil_2020_app/features/delivery_user_view/chat/data/repo/chat_r
 import 'package:dalil_2020_app/features/main/controller/store_and_product_cubit/add_store_cubit.dart';
 import 'package:dalil_2020_app/features/main/home/contact/presentation/controller/manager_chat_cubit.dart';
 import 'package:dalil_2020_app/features/main/home/contact/presentation/view/details_of_chat.dart';
+import 'package:dalil_2020_app/features/main/home/map/presentation/control/map_stores_cubit.dart';
 import 'package:dalil_2020_app/features/widgets/comments_product_section.dart';
 import 'package:dalil_2020_app/features/widgets/customOutlineButton.dart';
 import 'package:dalil_2020_app/models/product_model.dart';
+import 'package:dalil_2020_app/models/user_model.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -309,6 +311,10 @@ class _ProductDetailsUserViewState extends State<ProductDetailsUserView> {
                         // Right side: Chat button
                         GestureDetector(
                           onTap: () {
+                            // context.read<MapStoresCubit>().addRepresentative(
+                            //     context: context,
+                            //     representativeUser: UserModel());
+
                             // AppNavigator.push(BlocProvider(
                             //   create: (_) =>
                             //       ManagerChatCubit(chatRepo: ChatRepoImpel())

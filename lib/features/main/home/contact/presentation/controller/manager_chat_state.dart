@@ -1,5 +1,6 @@
 part of 'manager_chat_cubit.dart';
 
+
 @immutable
 class ManagerChatState extends Equatable {
   final List<ContactFromListModel> historyOfChat;

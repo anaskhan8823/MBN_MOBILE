@@ -10,8 +10,9 @@ import '../view/details_of_chat.dart';
 
 class ItemOfContactChat extends StatelessWidget {
   final ContactFromListModel data;
+  final Color? color;
 
-  const ItemOfContactChat({super.key, required this.data});
+  const ItemOfContactChat({super.key, required this.data, this.color});
   @override
   Widget build(BuildContext context) {
     return ListTile(
@@ -23,24 +24,37 @@ class ItemOfContactChat extends StatelessWidget {
       },
       contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       leading: CustomUserProfileImage(
-        color: AppColors.primary,
+        color: color ?? AppColors.primary,
         url: data.contactImage ?? '',
       ),
       title: Text(
         data.contactName ?? '',
-        style: const TextStyle(
-            color: Colors.orange, fontWeight: FontWeight.bold, fontSize: 18),
+        style: TextStyle(
+            color: color ?? AppColors.primary,
+            fontWeight: (data.unreadMessages ?? false)
+                ? FontWeight.bold
+                : FontWeight.normal,
+            fontSize: 18),
       ),
-      subtitle: Text(
-        data.lastMessage ?? '',
-        style: TextStyle(color: AppColors.textPrimary),
-      ),
+      subtitle: Text(data.lastMessage ?? '',
+          style: TextStyle(
+            color: AppColors.textPrimary,
+            fontWeight: (data.unreadMessages ?? false)
+                ? FontWeight.bold
+                : FontWeight.normal,
+          )),
       trailing: Column(
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
           Text(
             data.contactRole ?? '',
-            style: TextStyle(color: AppColors.textPrimary, fontSize: 12),
+            style: TextStyle(
+              color: AppColors.textPrimary,
+              fontSize: 12,
+              fontWeight: (data.unreadMessages ?? false)
+                  ? FontWeight.bold
+                  : FontWeight.normal,
+            ),
           ),
           // if (data.unreadMessages == true)
           Container(

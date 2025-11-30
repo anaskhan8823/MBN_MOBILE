@@ -28,79 +28,81 @@ class ItemOfPost extends StatelessWidget {
             child: PostDetails()));
       },
       child: Container(
-        margin: const EdgeInsets.symmetric(horizontal: 32),
+        margin: const EdgeInsets.symmetric(horizontal: 10),
         decoration: BoxDecoration(
             border: Border.all(color: AppColors.primaryLight, width: 2),
             borderRadius: BorderRadius.circular(16)),
-        padding: const EdgeInsets.all(16),
+        padding: const EdgeInsets.all(08),
         child: Column(
           children: [
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Row(
+                CachedNetworkImage(
+                    imageUrl: data.image ?? '',
+                    placeholder: (context, url) => const Center(
+                          child: CupertinoActivityIndicator(),
+                        ),
+                    imageBuilder: (context, imageProvider) {
+                      return Container(
+                        width: AppSize.getWidth(35),
+                        height: AppSize.getHeight(35),
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          border:
+                              Border.all(color: AppColors.buttonPrimaryLight),
+                          image: DecorationImage(
+                            image: imageProvider,
+                          ),
+                        ),
+                      );
+                    },
+                    errorWidget: (context, url, error) {
+                      return Container(
+                        width: AppSize.getWidth(35),
+                        height: AppSize.getHeight(35),
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          border:
+                              Border.all(color: AppColors.textLabelSelected),
+                          image: DecorationImage(
+                              image: AssetImage(AppIcons.choosePhoto),
+                              fit: BoxFit.fitWidth),
+                        ),
+                      );
+                    }),
+                const SizedBox(
+                  width: 10,
+                ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    CachedNetworkImage(
-                        imageUrl: data.image ?? '',
-                        placeholder: (context, url) => const Center(
-                              child: CupertinoActivityIndicator(),
-                            ),
-                        imageBuilder: (context, imageProvider) {
-                          return Container(
-                            width: AppSize.getWidth(35),
-                            height: AppSize.getHeight(35),
-                            decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              border: Border.all(
-                                  color: AppColors.buttonPrimaryLight),
-                              image: DecorationImage(
-                                image: imageProvider,
-                              ),
-                            ),
-                          );
-                        },
-                        errorWidget: (context, url, error) {
-                          return Container(
-                            width: AppSize.getWidth(35),
-                            height: AppSize.getHeight(35),
-                            decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              border: Border.all(
-                                  color: AppColors.textLabelSelected),
-                              image: DecorationImage(
-                                  image: AssetImage(AppIcons.choosePhoto),
-                                  fit: BoxFit.fitWidth),
-                            ),
-                          );
-                        }),
-                    const SizedBox(
-                      width: 10,
-                    ),
                     Text(
                       data.user?.name ?? '',
                       style: TextStyle(
                           fontSize: 12.sp,
                           fontWeight: FontWeight.w700,
                           color: AppColors.textColor),
-                    )
-                  ],
-                ),
-                Row(
-                  children: [
-                    const Icon(
-                      CupertinoIcons.clock_fill,
-                      color: AppColors.primaryLight,
                     ),
-                    const SizedBox(
-                      width: 10,
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Icon(
+                          CupertinoIcons.clock_fill,
+                          color: AppColors.primaryLight,
+                          size: 12,
+                        ),
+                        const SizedBox(
+                          width: 10,
+                        ),
+                        Text(
+                          data.createdAt ?? '',
+                          style: TextStyle(
+                              fontSize: 10.sp,
+                              fontWeight: FontWeight.w700,
+                              color: AppColors.primaryLight),
+                        )
+                      ],
                     ),
-                    Text(
-                      data.createdAt ?? '',
-                      style: TextStyle(
-                          fontSize: 12.sp,
-                          fontWeight: FontWeight.w700,
-                          color: AppColors.primaryLight),
-                    )
                   ],
                 )
               ],
@@ -147,7 +149,8 @@ class ItemOfPost extends StatelessWidget {
               height: 10,
             ),
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Row(
                   children: [
@@ -173,6 +176,9 @@ class ItemOfPost extends StatelessWidget {
                     ),
                   ],
                 ),
+                const SizedBox(
+                  width: 10,
+                ),
                 Row(
                   children: [
                     Transform.flip(
@@ -187,7 +193,7 @@ class ItemOfPost extends StatelessWidget {
                       style: TextStyle(
                           fontSize: 13.sp,
                           fontWeight: FontWeight.w700,
-                          color: AppColors.primaryLight),
+                          color: AppColors.textColor),
                     )
                   ],
                 )

@@ -74,12 +74,20 @@ class ManagerChatCubit extends Cubit<ManagerChatState> {
       (r) {
         _doneGetDataOfChat();
         emit(state.copyWith(
-            historyOfChat: state.historyOfChat..addAll(r.items ?? []),
-            tempHistoryOfChat: state.tempHistoryOfChat..addAll(r.items ?? []),
+            historyOfChat: [...state.historyOfChat, ...r.items ?? []],
+            tempHistoryOfChat: [...state.tempHistoryOfChat, ...r.items ?? []],
             paginateData: r.paginate));
       },
     );
   }
+
+  // void addNewMessage(MessageModel message) {
+  //   // create a new list with the new message
+  //   List<MessageModel> updatedList = List.from(state.tempHistoryOfChat);
+  //   updatedList.insert(0, message); // insert at top
+  //   // emit new state so BlocBuilder rebuilds
+  //   emit(state.copyWith(tempHistoryOfChat: updatedList));
+  // }
 
   Future<void> sendMessage({required String message}) async {
     if (isBlank(message)) return;
@@ -227,6 +235,7 @@ class ManagerChatCubit extends Cubit<ManagerChatState> {
           event.eventName.contains("new-message") ||
           event.eventName.contains("subscription_succeeded")) {
         final data = jsonDecode(event.data);
+
         print("Received message: $data");
         List<MessageModel> myMessages = state.historyOfMessages;
         myMessages.add(MessageModel.fromJson(
