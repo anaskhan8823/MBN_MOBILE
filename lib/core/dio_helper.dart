@@ -32,7 +32,7 @@ class DioHelper {
         options: Options(headers: _constHeader),
       );
       print('respone:${respone.realUri}');
-      log('respone:${respone.realUri}');
+      log('respone:${_constHeader}');
       return CustomResponse(
           isSuccess: true, data: respone.data, statusCode: respone.statusCode);
     } on DioException catch (ex) {

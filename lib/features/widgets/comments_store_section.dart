@@ -29,7 +29,10 @@ class CommentsStoreSection extends StatelessWidget {
                       child: Row(
                         children: [
                           Text('addProduct.comments'.tr(),
-                              style: kTextStyle18iUnderLine),
+                              style: TextStyle(
+                                  color: AppColors.primary,
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold)),
                           const Spacer(),
                           Icon(
                             Icons.add,

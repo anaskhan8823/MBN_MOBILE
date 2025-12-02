@@ -81,9 +81,12 @@ Future showRatingBottomSheet(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              'rate'.tr(),
-              style: const TextStyle(color: Colors.white, fontSize: 18),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 12.h),
+              child: Text(
+                'rate'.tr(),
+                style: const TextStyle(color: Colors.white, fontSize: 18),
+              ),
             ),
             const SizedBox(height: 8),
             Padding(
@@ -95,20 +98,26 @@ Future showRatingBottomSheet(
               ),
             ),
             const SizedBox(height: 16),
-            TextField(
-              focusNode: FocusNode(),
-              controller: comment,
-              style: TextStyle(color: AppColors.whiteAndBlackColor),
-              decoration: InputDecoration(
-                hintText: 'addComm'.tr(),
-                hintStyle: TextStyle(color: Colors.grey[400]),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 8.h),
+              child: TextField(
+                focusNode: FocusNode(),
+                controller: comment,
+                style: TextStyle(color: AppColors.whiteAndBlackColor),
+                decoration: InputDecoration(
+                  hintText: 'addComm'.tr(),
+                  hintStyle: TextStyle(color: Colors.grey[400]),
+                ),
+                maxLines: 4,
               ),
-              maxLines: 4,
             ),
             const SizedBox(height: 16),
-            CustomButton(
-              title: 'addStore.confirm',
-              onTap: onTap,
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 8.h),
+              child: CustomButton(
+                title: 'addStore.confirm',
+                onTap: onTap,
+              ),
             ),
             const SizedBox(height: 16),
           ],
@@ -169,12 +178,15 @@ Future displayDeleteStoreSheet(
                     Navigator.of(context).pop();
                   },
                 ),
-                CustomOutlinedButton(
-                    side: const BorderSide(color: Colors.transparent),
-                    label: "myProfile.confirm",
-                    backgroundColor: const Color(0xff820303),
-                    labelColor: AppColors.white,
-                    onPressed: onPressed)
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: CustomOutlinedButton(
+                      side: const BorderSide(color: Colors.transparent),
+                      label: "myProfile.confirm",
+                      backgroundColor: const Color(0xff820303),
+                      labelColor: AppColors.white,
+                      onPressed: onPressed),
+                )
               ])
             ],
           ),

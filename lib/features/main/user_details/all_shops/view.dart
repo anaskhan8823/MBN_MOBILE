@@ -1,5 +1,6 @@
 // }
 import 'package:dalil_2020_app/core/shared/widgets/auth_appbar.dart';
+import 'package:dalil_2020_app/core/shared/widgets/custom_button.dart';
 import 'package:dalil_2020_app/features/auth/presentation/city_and_country/cubit/location_cubit.dart';
 import 'package:dalil_2020_app/features/main/controller/store_and_product_cubit/add_store_cubit.dart';
 import 'package:dalil_2020_app/features/main/user_details/all_shops/all_products_for_selling_and_rent_cubit.dart';
@@ -87,7 +88,7 @@ class AllShopsForUser extends StatelessWidget {
                   builder: (context, stateStore) {
                     return Padding(
                       padding:
-                          const EdgeInsets.only(bottom: 10, left: 15, right: 1),
+                          const EdgeInsets.only(bottom: 10, left: 8, right: 08),
                       child: TextFormField(
                         controller: cubit.searchController,
                         style: kTextStyle14white.copyWith(
@@ -130,11 +131,11 @@ class AllShopsForUser extends StatelessWidget {
                           contentPadding: EdgeInsets.symmetric(
                               vertical: 15, horizontal: 10),
                           focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(33),
+                            borderRadius: BorderRadius.circular(18),
                             borderSide: BorderSide(color: AppColors.primary),
                           ),
                           enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(33),
+                            borderRadius: BorderRadius.circular(18),
                             borderSide: BorderSide(color: AppColors.primary),
                           ),
                           hintText: "navHome.search".tr(),
@@ -166,12 +167,13 @@ class AllShopsForUser extends StatelessWidget {
                 if (stateStore is AddStoreLoading) {
                   return const Skeletonizer(child: StoresLoading());
                 } else if (stateStore is GetStoresSuccess) {
-                  if (stateStore.stores.isEmpty) return const EmptyStores();
+                  // if (stateStore.stores.isEmpty) return const EmptyStores();
                   cubit.filters = [
                     //  if (searchController.value.text,.isNotEmpty) cubit.country.text,
                     if (cubit.country.value.text.isNotEmpty) cubit.country.text,
                     if (locCubit.selectedCity != null) locCubit.selectedCity!,
                     if (cubit.selectedCategory != null) cubit.selectedCategory!,
+                    if (cubit.saleType != null) cubit.saleType!,
                     if (cubit.selectedSubCategory != null)
                       cubit.selectedSubCategory!,
                   ];
@@ -221,6 +223,11 @@ class AllShopsForUser extends StatelessWidget {
                                               locCubit.clearCitySelection();
                                               cubit.getAllStoresForUser();
                                             } else if (filter ==
+                                                cubit.saleType) {
+                                              print("object");
+                                              cubit.saleType = null;
+                                              cubit.getAllStoresForUser();
+                                            } else if (filter ==
                                                 cubit.selectedCategory) {
                                               print("object");
                                               cubit.selectedCategory = null;
@@ -253,58 +260,133 @@ class AllShopsForUser extends StatelessWidget {
 
                       const SizedBox(height: 05),
                       // Make GridView expand to fill remaining space
-                      Expanded(
-                        child: GridView.builder(
-                          padding: EdgeInsets.symmetric(horizontal: 15.w),
-                          itemCount: stateStore.stores.length,
-                          gridDelegate:
-                              const SliverGridDelegateWithFixedCrossAxisCount(
-                                  crossAxisCount: 2, childAspectRatio: 0.67),
-                          itemBuilder: (context, index) {
-                            final isEn = context.locale.languageCode == 'en';
-                            final store = stateStore.stores[index];
 
-                            return InkWell(
-                              onTap: () {
-                                AppNavigator.push(StoreDetailsUserView(
-                                  mainCategoryName: store.category?.first ?? '',
-                                  subCategoryName:
-                                      store.subCategory?.first ?? '',
-                                  address: store.contactInfo?.address ?? '',
-                                  workTimes: store.workingTimes ?? [],
-                                  location: store.location,
-                                  phone: store.contactInfo?.mobileNumber ?? '',
-                                  storeId: store.id ?? 0,
-                                  rating: store.rating ?? "0",
-                                  storeName: isEn
-                                      ? store.storeName?.en ?? ''
-                                      : store.storeName?.ar ?? '',
-                                  storeImage: store.images?.isNotEmpty == true
-                                      ? store.images![0].url ?? ''
-                                      : '',
-                                ));
-                              },
-                              child: Padding(
-                                padding: EdgeInsets.symmetric(
-                                  vertical: AppSize.getHeight(8),
-                                  horizontal: AppSize.getWidth(8),
-                                ),
-                                child: StoreCardForUser(
-                                  phone: store.contactInfo?.mobileNumber ?? '',
-                                  imageUrl: store.images?.isNotEmpty == true
-                                      ? store.images![0].url ?? ''
-                                      : '',
-                                  rating: store.rating ?? "0",
-                                  address: store.contactInfo?.address ?? '',
-                                  storeName: isEn
-                                      ? store.storeName?.en ?? ''
-                                      : store.storeName?.ar ?? '',
+                      stateStore.stores.isNotEmpty
+                          ? Expanded(
+                              child: GridView.builder(
+                                padding: EdgeInsets.symmetric(horizontal: 4.w),
+                                itemCount: stateStore.stores.length,
+                                gridDelegate:
+                                    const SliverGridDelegateWithFixedCrossAxisCount(
+                                        crossAxisCount: 2,
+                                        childAspectRatio: 0.72),
+                                itemBuilder: (context, index) {
+                                  final isEn =
+                                      context.locale.languageCode == 'en';
+                                  final store = stateStore.stores[index];
+
+                                  return InkWell(
+                                    onTap: () {
+                                      AppNavigator.push(StoreDetailsUserView(
+                                        mainCategoryName:
+                                            store.category?.first ?? '',
+                                        subCategoryName:
+                                            store.subCategory?.first ?? '',
+                                        address:
+                                            store.contactInfo?.address ?? '',
+                                        workTimes: store.workingTimes ?? [],
+                                        location: store.location,
+                                        phone:
+                                            store.contactInfo?.mobileNumber ??
+                                                '',
+                                        storeId: store.id ?? 0,
+                                        rating: store.rating ?? "0",
+                                        storeName: isEn
+                                            ? store.storeName?.en ?? ''
+                                            : store.storeName?.ar ?? '',
+                                        storeImage:
+                                            store.images?.isNotEmpty == true
+                                                ? store.images![0].url ?? ''
+                                                : '',
+                                      ));
+                                    },
+                                    child: Padding(
+                                      padding: EdgeInsets.symmetric(
+                                        vertical: AppSize.getHeight(4),
+                                        horizontal: AppSize.getWidth(4),
+                                      ),
+                                      child: StoreCardForUser(
+                                        phone:
+                                            store.contactInfo?.mobileNumber ??
+                                                '',
+                                        imageUrl:
+                                            store.images?.isNotEmpty == true
+                                                ? store.images![0].url ?? ''
+                                                : '',
+                                        rating: store.rating ?? "0",
+                                        address:
+                                            store.contactInfo?.address ?? '',
+                                        storeName: isEn
+                                            ? store.storeName?.en ?? ''
+                                            : store.storeName?.ar ?? '',
+                                      ),
+                                    ),
+                                  );
+                                },
+                              ),
+                            )
+                          : Expanded(
+                              child: Center(
+                                child: Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 20),
+                                  child: Column(
+                                    spacing: 20,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                        "There are no stores available that match the selected search filters at the moment. Try changing the filters to see more results.",
+                                        style: TextStyle(
+                                            color:
+                                                AppColors.whiteAndBlackColor),
+                                        textAlign: TextAlign.center,
+                                      ),
+                                      CustomButton(
+                                        textSize: 12.sp,
+                                        title: "Clear Search",
+                                        textColor: AppColors.blackAndWhiteColor,
+                                        width: AppSize.getWidth(200),
+                                        onTap: () {
+                                          // Clear country
+                                          cubit.filters
+                                              .remove(cubit.country.value.text);
+                                          cubit.country.text = "";
+                                          locCubit.clearCountrySelection();
+
+                                          // Clear city
+                                          locCubit.clearCitySelection();
+
+                                          // Clear sale type
+                                          cubit.saleType = null;
+
+                                          // Clear category + subcategory
+                                          cubit.selectedCategory = null;
+                                          cubit.selectedCategoryId = null;
+                                          cubit.selectedSubCategory = null;
+
+                                          // Reload stores
+                                          cubit.getAllStoresForUser();
+
+                                          cubit.searchController.text = "";
+                                          cubit
+                                              .getAllStoresForUserWithFilterCategory(
+                                            cubit.selectedCategoryId,
+                                            cubit.selectedSubCat,
+                                            locCubit.countryId,
+                                            locCubit.cityId,
+                                            cubit.searchController.text,
+                                            cubit.duscountID,
+                                          );
+
+                                          // Notify UI
+                                          cubit.emit(cubit.state);
+                                        },
+                                      )
+                                    ],
+                                  ),
                                 ),
                               ),
-                            );
-                          },
-                        ),
-                      ),
+                            )
                     ],
                   );
                 }

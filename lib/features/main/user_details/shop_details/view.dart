@@ -2,11 +2,13 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:dalil_2020_app/core/app_assets.dart';
 import 'package:dalil_2020_app/core/cache/cache_helper.dart';
 import 'package:dalil_2020_app/core/helper/app_navigator.dart';
+import 'package:dalil_2020_app/core/shared/widgets/custom_svg.dart';
 import 'package:dalil_2020_app/core/style/text_style.dart';
 import 'package:dalil_2020_app/features/main/controller/store_and_product_cubit/add_store_cubit.dart';
 import 'package:dalil_2020_app/features/main/shop_owner_details/store_details/other_details.dart';
 import 'package:dalil_2020_app/features/main/shop_owner_details/store_details/view.dart';
 import 'package:dalil_2020_app/features/main/user_details/product_details/view.dart';
+import 'package:dalil_2020_app/features/widgets/custom_service_container_product_details.dart';
 import 'package:dalil_2020_app/models/store_model.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -151,7 +153,7 @@ class _StoreDetailsUserViewState extends State<StoreDetailsUserView> {
                 ),
               ),
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 22),
+                padding: const EdgeInsets.symmetric(horizontal: 12),
                 color: Theme.of(context).scaffoldBackgroundColor,
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
@@ -166,12 +168,37 @@ class _StoreDetailsUserViewState extends State<StoreDetailsUserView> {
                       category: widget.mainCategoryName,
                       subCategory: widget.subCategoryName,
                     ),
-                    const SizedBox(height: 20),
-                    SvgPicture.asset(
-                      AppIcons.wave,
+                    const SizedBox(height: 10),
+                    GestureDetector(
+                      onTap: () => AppNavigator.push(OtherDetails(
+                          workingTimes: widget.workTimes,
+                          location: widget.location,
+                          phone: widget.phone,
+                          address: widget.address)),
+                      child: CategoryButton(
+                          title: "View Contact Details",
+                          svg: CustomSvg(
+                            svg: AppSvg.description,
+                            height: 14.h,
+                            width: double.infinity,
+                            color: AppColors.whiteAndOrangeColor,
+                          )),
                     ),
-                    const SizedBox(height: 20),
-                    Text('Products'.tr(), style: kTextStyle18iUnderLine),
+                    const SizedBox(height: 10),
+                    // SvgPicture.asset(
+                    //   AppIcons.wave,
+                    // ),
+                    Divider(
+                      thickness: 1,
+                      color: AppColors.primaryDark,
+                    ),
+                    const SizedBox(height: 10),
+                    Text('Products'.tr(),
+                        style: TextStyle(
+                            color: AppColors.primary,
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold)),
+
                     BlocBuilder<ProductCubit, ProductState>(
                         builder: (context, state) {
                       if (state is ProductLoading || state is AddStoreLoading) {
@@ -277,32 +304,42 @@ class _StoreDetailsUserViewState extends State<StoreDetailsUserView> {
                         );
                       }
                     }),
-                    SvgPicture.asset(
-                      AppIcons.wave,
+                    // SvgPicture.asset(
+                    //   AppIcons.wave,
+                    // ),
+                    // const SizedBox(height: 20),
+                    const SizedBox(height: 10),
+                    // SvgPicture.asset(
+                    //   AppIcons.wave,
+                    // ),
+                    Divider(
+                      thickness: 1,
+                      color: AppColors.primaryDark,
                     ),
-                    const SizedBox(height: 20),
-                    GestureDetector(
-                      onTap: () => AppNavigator.push(OtherDetails(
-                          workingTimes: widget.workTimes,
-                          location: widget.location,
-                          phone: widget.phone,
-                          address: widget.address)),
-                      child: Row(
-                        spacing: 15,
-                        children: [
-                          Text(
-                            "View Contact Details",
-                            style: kTextStyle16Orange,
-                          ),
-                          Icon(
-                            Icons.arrow_right_alt,
-                            color: AppColors.primary,
-                            size: 30,
-                          ),
-                        ],
-                      ),
-                    ),
-                    const SizedBox(height: 20),
+                    const SizedBox(height: 10),
+                    // GestureDetector(
+                    //   onTap: () => AppNavigator.push(OtherDetails(
+                    //       workingTimes: widget.workTimes,
+                    //       location: widget.location,
+                    //       phone: widget.phone,
+                    //       address: widget.address)),
+                    //   child: Row(
+                    //     spacing: 15,
+                    //     children: [
+                    //       Text(
+                    //         "View Contact Details",
+                    //         style: kTextStyle16Orange,
+                    //       ),
+                    //       Icon(
+                    //         Icons.arrow_right_alt,
+                    //         color: AppColors.primary,
+                    //         size: 30,
+                    //       ),
+                    //     ],
+                    //   ),
+                    // ),
+
+                    // const SizedBox(height: 20),
                     CommentsStoreSection(
                       addComment: true,
                       storeId: widget.storeId,

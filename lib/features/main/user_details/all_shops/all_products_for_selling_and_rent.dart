@@ -1,4 +1,5 @@
 import 'package:dalil_2020_app/core/shared/widgets/auth_appbar.dart';
+import 'package:dalil_2020_app/core/shared/widgets/custom_button.dart';
 import 'package:dalil_2020_app/features/auth/presentation/city_and_country/cubit/location_cubit.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -185,17 +186,16 @@ class AllProductsForSellingAndRent extends StatelessWidget {
                 if (stateStore.requestState == RequestStateEnum.loading) {
                   return const Skeletonizer(child: StoresLoading());
                 } else if (stateStore.requestState == RequestStateEnum.done) {
-                  if (stateStore.stores.isEmpty) return const EmptyStores();
+                  // if (stateStore.stores.isEmpty) return const EmptyStores();
                   cubit.filters = [
-                    // if (cubit.searchController.value.text.isNotEmpty)
-                    //   cubit.searchController.value.text,
+                    //  if (searchController.value.text,.isNotEmpty) cubit.country.text,
                     if (cubit.country.value.text.isNotEmpty) cubit.country.text,
                     if (locCubit.selectedCity != null) locCubit.selectedCity!,
                     if (cubit.selectedCategory != null) cubit.selectedCategory!,
+                    if (cubit.saleType != null) cubit.saleType!,
                     if (cubit.selectedSubCategory != null)
                       cubit.selectedSubCategory!,
                   ];
-
                   return Column(
                     children: [
                       cubit.filters.isNotEmpty
@@ -224,7 +224,86 @@ class AllProductsForSellingAndRent extends StatelessWidget {
                                         ),
                                         const SizedBox(width: 6),
                                         GestureDetector(
-                                          onTap: () {
+                                          onTap: ()
+                                              // {
+                                              //   // print("object");
+                                              //   if (filter ==
+                                              //       cubit.country.value.text) {
+                                              //     print("object");
+                                              //     cubit.filters.remove(
+                                              //         cubit.country.value.text);
+                                              //     locCubit.clearCountrySelection();
+
+                                              //     cubit.country.text = "";
+                                              //     sellingAndRentCubit
+                                              //         .getAllStoresForUser(
+                                              //       selectedCategoryId:
+                                              //           cubit.selectedCategoryId,
+                                              //       subcategoryId:
+                                              //           cubit.selectedSubCat,
+                                              //       selectedCountryId:
+                                              //           locCubit.countryId,
+                                              //       selectedCityId: locCubit.cityId,
+                                              //       search:
+                                              //           cubit.searchController.text,
+                                              //     );
+                                              //   } else if (filter ==
+                                              //       locCubit.selectedCity) {
+                                              //     print("object");
+                                              //     locCubit.clearCitySelection();
+                                              //     sellingAndRentCubit
+                                              //         .getAllStoresForUser(
+                                              //       selectedCategoryId:
+                                              //           cubit.selectedCategoryId,
+                                              //       subcategoryId:
+                                              //           cubit.selectedSubCat,
+                                              //       selectedCountryId:
+                                              //           locCubit.countryId,
+                                              //       selectedCityId: locCubit.cityId,
+                                              //       search:
+                                              //           cubit.searchController.text,
+                                              //     );
+                                              //   } else if (filter ==
+                                              //       cubit.selectedCategory) {
+                                              //     print("object");
+                                              //     cubit.selectedCategory = null;
+                                              //     cubit.selectedCategoryId = null;
+                                              //     cubit.selectedSubCategory = null;
+                                              //     cubit.selectedSubCat = null;
+                                              //     sellingAndRentCubit
+                                              //         .getAllStoresForUser(
+                                              //       selectedCategoryId:
+                                              //           cubit.selectedCategoryId,
+                                              //       subcategoryId:
+                                              //           cubit.selectedSubCat,
+                                              //       selectedCountryId:
+                                              //           locCubit.countryId,
+                                              //       selectedCityId: locCubit.cityId,
+                                              //       search:
+                                              //           cubit.searchController.text,
+                                              //     );
+                                              //   } else if (filter ==
+                                              //       cubit.selectedSubCategory) {
+                                              //     print("object");
+                                              //     cubit.selectedSubCategory = null;
+
+                                              //     cubit.selectedSubCat = null;
+                                              //     sellingAndRentCubit
+                                              //         .getAllStoresForUser(
+                                              //       selectedCategoryId:
+                                              //           cubit.selectedCategoryId,
+                                              //       subcategoryId:
+                                              //           cubit.selectedSubCat,
+                                              //       selectedCountryId:
+                                              //           locCubit.countryId,
+                                              //       selectedCityId: locCubit.cityId,
+                                              //       search:
+                                              //           cubit.searchController.text,
+                                              //     );
+                                              //   }
+                                              //   cubit.emit(cubit.state);
+                                              // },
+                                              {
                                             // print("object");
                                             if (filter ==
                                                 cubit.country.value.text) {
@@ -235,70 +314,35 @@ class AllProductsForSellingAndRent extends StatelessWidget {
 
                                               cubit.country.text = "";
                                               sellingAndRentCubit
-                                                  .getAllStoresForUser(
-                                                selectedCategoryId:
-                                                    cubit.selectedCategoryId,
-                                                subcategoryId:
-                                                    cubit.selectedSubCat,
-                                                selectedCountryId:
-                                                    locCubit.countryId,
-                                                selectedCityId: locCubit.cityId,
-                                                search:
-                                                    cubit.searchController.text,
-                                              );
+                                                  .getAllStoresForUser();
                                             } else if (filter ==
                                                 locCubit.selectedCity) {
                                               print("object");
                                               locCubit.clearCitySelection();
                                               sellingAndRentCubit
-                                                  .getAllStoresForUser(
-                                                selectedCategoryId:
-                                                    cubit.selectedCategoryId,
-                                                subcategoryId:
-                                                    cubit.selectedSubCat,
-                                                selectedCountryId:
-                                                    locCubit.countryId,
-                                                selectedCityId: locCubit.cityId,
-                                                search:
-                                                    cubit.searchController.text,
-                                              );
+                                                  .getAllStoresForUser();
+                                            } else if (filter ==
+                                                cubit.saleType) {
+                                              print("object");
+                                              cubit.saleType = null;
+                                              sellingAndRentCubit
+                                                  .getAllStoresForUser();
                                             } else if (filter ==
                                                 cubit.selectedCategory) {
                                               print("object");
                                               cubit.selectedCategory = null;
                                               cubit.selectedCategoryId = null;
                                               cubit.selectedSubCategory = null;
-                                              cubit.selectedSubCat = null;
+                                              cubit.selectedSubCategory = null;
                                               sellingAndRentCubit
-                                                  .getAllStoresForUser(
-                                                selectedCategoryId:
-                                                    cubit.selectedCategoryId,
-                                                subcategoryId:
-                                                    cubit.selectedSubCat,
-                                                selectedCountryId:
-                                                    locCubit.countryId,
-                                                selectedCityId: locCubit.cityId,
-                                                search:
-                                                    cubit.searchController.text,
-                                              );
+                                                  .getAllStoresForUser();
                                             } else if (filter ==
                                                 cubit.selectedSubCategory) {
                                               print("object");
                                               cubit.selectedSubCategory = null;
-
-                                              cubit.selectedSubCat = null;
+                                              cubit.selectedSubCategory = null;
                                               sellingAndRentCubit
-                                                  .getAllStoresForUser(
-                                                selectedCategoryId:
-                                                    cubit.selectedCategoryId,
-                                                subcategoryId:
-                                                    cubit.selectedSubCat,
-                                                selectedCountryId:
-                                                    locCubit.countryId,
-                                                selectedCityId: locCubit.cityId,
-                                                search:
-                                                    cubit.searchController.text,
-                                              );
+                                                  .getAllStoresForUser();
                                             }
                                             cubit.emit(cubit.state);
                                           },
@@ -316,56 +360,127 @@ class AllProductsForSellingAndRent extends StatelessWidget {
                             )
                           : SizedBox(),
                       const SizedBox(height: 05),
-                      Expanded(
-                        child: GridView.builder(
-                          padding: EdgeInsets.symmetric(horizontal: 15.w),
-                          itemCount: Utils.items('', stateStore.stores.length),
-                          gridDelegate:
-                              const SliverGridDelegateWithFixedCrossAxisCount(
-                                  crossAxisCount: 2, childAspectRatio: 0.67),
-                          itemBuilder: (context, index) {
-                            final isEn = context.locale.languageCode == 'en';
-                            final stores = stateStore.stores[index];
-                            return GestureDetector(
-                              onTap: () {
-                                AppNavigator.push(StoreDetailsUserView(
-                                  mainCategoryName: stores.category?[0] ?? '',
-                                  subCategoryName: stores.subCategory?[0] ?? '',
-                                  address: '',
-                                  workTimes: [],
-                                  location: null,
-                                  phone: stores.sellerPhone ?? '',
-                                  storeId: stores.id ?? 0,
-                                  rating: (stores.rating ?? 0).toString(),
-                                  storeName: isEn
-                                      ? stores.productName?.en ?? ''
-                                      : stores.productName?.ar ?? '',
-                                  storeImage: stores.images?.isNotEmpty == true
-                                      ? stores.images![0].url!
-                                      : '',
-                                ));
-                              },
-                              child: Padding(
-                                padding: EdgeInsets.symmetric(
-                                  vertical: AppSize.getHeight(8),
-                                  horizontal: AppSize.getWidth(8),
-                                ),
-                                child: StoreCardForUser(
-                                  phone: stores.sellerPhone ?? '',
-                                  imageUrl: stores.images?.isNotEmpty == true
-                                      ? stores.images![0].url!
-                                      : '',
-                                  rating: (stores.rating ?? 0).toString(),
-                                  address: '',
-                                  storeName: isEn
-                                      ? stores.productName?.en ?? ''
-                                      : stores.productName?.ar ?? '',
+                      stateStore.stores.isNotEmpty
+                          ? Expanded(
+                              child: GridView.builder(
+                                padding: EdgeInsets.symmetric(horizontal: 15.w),
+                                itemCount:
+                                    Utils.items('', stateStore.stores.length),
+                                gridDelegate:
+                                    const SliverGridDelegateWithFixedCrossAxisCount(
+                                        crossAxisCount: 2,
+                                        childAspectRatio: 0.67),
+                                itemBuilder: (context, index) {
+                                  final isEn =
+                                      context.locale.languageCode == 'en';
+                                  final stores = stateStore.stores[index];
+                                  return GestureDetector(
+                                    onTap: () {
+                                      AppNavigator.push(StoreDetailsUserView(
+                                        mainCategoryName:
+                                            stores.category?[0] ?? '',
+                                        subCategoryName:
+                                            stores.subCategory?[0] ?? '',
+                                        address: '',
+                                        workTimes: [],
+                                        location: null,
+                                        phone: stores.sellerPhone ?? '',
+                                        storeId: stores.id ?? 0,
+                                        rating: (stores.rating ?? 0).toString(),
+                                        storeName: isEn
+                                            ? stores.productName?.en ?? ''
+                                            : stores.productName?.ar ?? '',
+                                        storeImage:
+                                            stores.images?.isNotEmpty == true
+                                                ? stores.images![0].url!
+                                                : '',
+                                      ));
+                                    },
+                                    child: Padding(
+                                      padding: EdgeInsets.symmetric(
+                                        vertical: AppSize.getHeight(8),
+                                        horizontal: AppSize.getWidth(8),
+                                      ),
+                                      child: StoreCardForUser(
+                                        phone: stores.sellerPhone ?? '',
+                                        imageUrl:
+                                            stores.images?.isNotEmpty == true
+                                                ? stores.images![0].url!
+                                                : '',
+                                        rating: (stores.rating ?? 0).toString(),
+                                        address: '',
+                                        storeName: isEn
+                                            ? stores.productName?.en ?? ''
+                                            : stores.productName?.ar ?? '',
+                                      ),
+                                    ),
+                                  );
+                                },
+                              ),
+                            )
+                          : Expanded(
+                              child: Center(
+                                child: Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 20),
+                                  child: Column(
+                                    spacing: 20,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                        "There are no stores available that match the selected search filters at the moment. Try changing the filters to see more results.",
+                                        style: TextStyle(
+                                            color:
+                                                AppColors.whiteAndBlackColor),
+                                        textAlign: TextAlign.center,
+                                      ),
+                                      CustomButton(
+                                        textSize: 12.sp,
+                                        title: "Clear Search",
+                                        textColor: AppColors.blackAndWhiteColor,
+                                        width: AppSize.getWidth(200),
+                                        onTap: () {
+                                          // Clear country
+                                          cubit.filters
+                                              .remove(cubit.country.value.text);
+                                          cubit.country.text = "";
+                                          locCubit.clearCountrySelection();
+
+                                          // Clear city
+                                          locCubit.clearCitySelection();
+
+                                          // Clear sale type
+                                          cubit.saleType = null;
+
+                                          // Clear category + subcategory
+                                          cubit.selectedCategory = null;
+                                          cubit.selectedCategoryId = null;
+                                          cubit.selectedSubCategory = null;
+
+                                          // Reload stores
+                                          sellingAndRentCubit
+                                              .getAllStoresForUser();
+
+                                          cubit.searchController.text = "";
+                                          // cubit
+                                          //     .getAllStoresForUserWithFilterCategory(
+                                          //   cubit.selectedCategoryId,
+                                          //   cubit.selectedSubCat,
+                                          //   locCubit.countryId,
+                                          //   locCubit.cityId,
+                                          //   cubit.searchController.text,
+                                          //   cubit.duscountID,
+                                          // );
+
+                                          // Notify UI
+                                          cubit.emit(cubit.state);
+                                        },
+                                      )
+                                    ],
+                                  ),
                                 ),
                               ),
-                            );
-                          },
-                        ),
-                      ),
+                            )
                     ],
                   );
                 }

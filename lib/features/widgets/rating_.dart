@@ -1,5 +1,6 @@
 import 'package:dalil_2020_app/core/style/app_colors.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../core/app_assets.dart';
 import '../../core/shared/widgets/custom_svg.dart';
@@ -20,14 +21,15 @@ class RatingWidget extends StatelessWidget {
     return startFirst == false
         ? Row(
             children: [
-              Text(
-                rating.toString(),
-                style:
-                    kTextStyle13.copyWith(color: AppColors.whiteAndBlackColor),
-              ),
               CustomSvg(
                 svg: AppIcons.star,
+                height: 14.h,
                 color: color ?? AppColors.primary,
+              ),
+              Text(
+                rating.toString(),
+                style: kTextStyle13.copyWith(
+                    color: AppColors.whiteAndBlackColor, fontSize: 10),
               ),
             ],
           )
@@ -42,7 +44,7 @@ class RatingWidget extends StatelessWidget {
               ),
               Text(rating.toString() ?? "",
                   style: kTextStyle13.copyWith(
-                      fontSize: 14, color: AppColors.whiteAndBlackColor)),
+                      fontSize: 10, color: AppColors.whiteAndBlackColor)),
             ],
           );
   }

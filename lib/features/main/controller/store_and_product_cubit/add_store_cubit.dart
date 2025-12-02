@@ -669,6 +669,7 @@ class StoreAndProductCubit extends Cubit<StoreAndProductState> {
 
   Future<void> addComment(int? productId, int? storeId) async {
     // try {
+    log("yessssss");
     emit(AddStoreLoading());
     final response = await DioHelper.send(ADD_RATING, data: {
       "comment": commentController.text,
@@ -676,6 +677,12 @@ class StoreAndProductCubit extends Cubit<StoreAndProductState> {
       'ratings': rate ?? 0,
       if (storeId != null) 'store_id': storeId
     });
+    log("yessssss ${{
+      "comment": commentController.text,
+      if (productId != null) "product_id": productId,
+      'ratings': rate ?? 0,
+      if (storeId != null) 'store_id': storeId
+    }}");
     if (response.isSuccess) {
       AppToast.success("Comment added successfully");
       productId != null
