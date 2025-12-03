@@ -29,6 +29,7 @@ class StoreCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: MediaQuery.of(context).size.width * 0.5,
+      // height: MediaQuery.of(context).size.height * 0.1,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20),
         border: Border.all(color: AppColors.primary, width: 2),
@@ -42,14 +43,14 @@ class StoreCard extends StatelessWidget {
               ),
               child: Image.network(
                 imageUrl,
-                height: MediaQuery.of(context).size.height * 0.19,
+                height: MediaQuery.of(context).size.height * 0.21,
                 width: double.infinity,
                 fit: BoxFit.cover,
                 errorBuilder: (context, error, stackTrace) {
                   return Image.asset(
                     AppImages.products,
                     width: double.infinity,
-                    height: MediaQuery.of(context).size.height * 0.19,
+                    height: MediaQuery.of(context).size.height * 0.21,
                     fit: BoxFit.cover,
                   );
                 },
@@ -57,7 +58,7 @@ class StoreCard extends StatelessWidget {
           Container(
             decoration: const BoxDecoration(
                 borderRadius: BorderRadius.all(Radius.circular(12))),
-            padding: const EdgeInsets.symmetric(horizontal: 10),
+            padding: const EdgeInsets.symmetric(horizontal: 08),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -77,7 +78,7 @@ class StoreCard extends StatelessWidget {
                   ),
                 ],
                 SizedBox(
-                  height: AppSize.getHeight(8),
+                  height: AppSize.getHeight(10),
                 ),
                 Text(
                   storeName,
@@ -91,32 +92,44 @@ class StoreCard extends StatelessWidget {
                   maxLines: 1,
                 ),
                 if (!homeOfUser) ...[
-                  const SizedBox(height: 8),
+                  const SizedBox(height: 10),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
+                      Row(
+                        spacing: 3,
+                        children: [
+                          CustomSvg(
+                            svg: AppIcons.box,
+                          ),
+                          Text(' $products', style: kTextStyle13),
+                          Text('navHome.product'.tr(), style: kTextStyle13)
+                        ],
+                      ),
                       // Views
-                      CustomEyeView(views: views),
-                      if (double.parse(rating) > 0)
-                        RatingWidget(startFirst: false, rating: rating)
-                      else
-                        Text('navHome.noRatingsYet'.tr(),
-                            style: kTextStyle13.copyWith(fontSize: 8)),
+                      // CustomEyeView(views: views),
+                      // if (double.parse(rating) > 0)
+                      RatingWidget(startFirst: false, rating: rating)
+                      // else
+                      //   Text('navHome.noRatingsYet'.tr(),
+                      //       style: kTextStyle13.copyWith(fontSize: 8)),
                     ],
                   ),
-                  const SizedBox(height: 3),
-                  Row(
-                    spacing: 3,
-                    children: [
-                      CustomSvg(svg: AppIcons.box),
-                      Text(' $products', style: kTextStyle13),
-                      Text('navHome.product'.tr(), style: kTextStyle13)
-                    ],
-                  ),
+                  const SizedBox(height: 2),
+                  // Row(
+                  //   spacing: 3,
+                  //   children: [
+                  //     CustomSvg(
+                  //       svg: AppIcons.box,
+                  //     ),
+                  //     Text(' $products', style: kTextStyle13),
+                  //     Text('navHome.product'.tr(), style: kTextStyle13)
+                  //   ],
+                  // ),
                 ],
-                const SizedBox(
-                  height: 5,
-                )
+                // const SizedBox(
+                //   height: 5,
+                // )
               ],
             ),
           ),

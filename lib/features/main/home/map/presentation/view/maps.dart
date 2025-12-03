@@ -606,7 +606,9 @@ class _MapsViewState extends State<MapsView> {
           rating: "${store.rating ?? "0"}",
           storeName:
               isEn ? store.storeName!.en ?? '' : store.storeName!.ar ?? '',
-          storeImage: store.images!.isNotEmpty ? store.images![0] : '',
+          storeImage: (store.images != null && store.images!.isNotEmpty)
+              ? store.images!
+              : [],
         ));
       },
       child: Container(

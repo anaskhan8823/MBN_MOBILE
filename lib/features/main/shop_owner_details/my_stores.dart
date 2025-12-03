@@ -45,11 +45,11 @@ class MyStores extends StatelessWidget {
                     final isEn = context.locale.languageCode == 'en';
 
                     return Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                      padding: const EdgeInsets.symmetric(horizontal: 6.0),
                       child: GestureDetector(
                         child: StoreCard(
                           imageUrl: (list[index].images?.isNotEmpty == true)
-                              ? (list[index].images?.first ?? '')
+                              ? (list[index].images?.first.url ?? '')
                               : '',
                           products: list[index].products ?? 0,
                           rating: "${list[index].rating ?? 0}",
@@ -74,16 +74,16 @@ class MyStores extends StatelessWidget {
                             location: list[index].location,
                             phone: list[index].contactInfo?.mobileNumber ?? '',
                             storeId: list[index].id ?? 0,
-                            rating: list[index].rating.toString() ?? "0",
+                            rating: (list[index].rating ?? 0).toString(),
                             storeName: isEn
                                 ? list[index].storeName?.en ?? ''
                                 : list[index].storeName?.ar ?? '',
 
-                            storeImage: "",
-                            // (list[index].images != null &&
-                            //         list[index].images!.isNotEmpty)
-                            //     ? list[index].images![0].url ?? ''
-                            //     : '',
+                            /// ⭐ Store Image: if empty → return empty list
+                            storeImage: (list[index].images != null &&
+                                    list[index].images!.isNotEmpty)
+                                ? list[index].images!
+                                : [],
                           ));
                         },
                       ),

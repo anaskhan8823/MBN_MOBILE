@@ -1,5 +1,8 @@
 import 'package:dalil_2020_app/core/helper/app_navigator.dart';
 import 'package:dalil_2020_app/core/style/app_size.dart';
+import 'package:dalil_2020_app/features/posts/data/repo/posts_repo_impel.dart';
+import 'package:dalil_2020_app/features/posts/presentation/controller/posts_cubit.dart';
+import 'package:dalil_2020_app/features/posts/presentation/view/view_all_posts.dart';
 import 'package:dalil_2020_app/features/widgets/custom_active_And_not_active_in_cayegories%20copy.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -49,7 +52,7 @@ class HomeUser extends StatelessWidget {
               children: [
                 Padding(
                   padding: EdgeInsets.symmetric(
-                    horizontal: AppSize.getWidth(25),
+                    horizontal: AppSize.getWidth(18),
                     vertical: AppSize.getHeight(10),
                   ),
                   child: buildSearchBar(
@@ -64,7 +67,7 @@ class HomeUser extends StatelessWidget {
                 ),
                 Padding(
                   padding:
-                      EdgeInsets.symmetric(horizontal: AppSize.getWidth(25)),
+                      EdgeInsets.symmetric(horizontal: AppSize.getWidth(18)),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -82,71 +85,154 @@ class HomeUser extends StatelessWidget {
                           onPressed: () {},
                         ),
                       ),
-                      SizedBox(height: AppSize.getHeight(20)),
+                      SizedBox(height: AppSize.getHeight(10)),
                       CustomActiveAndNotActiveInCategories(
+                        // width: MediaQuery.of(context).size.width * 0.85,
+                        width: double.infinity,
+                        hight: MediaQuery.of(context).size.height * 0.12,
                         image: "assets/png.png",
                         subtitle:
                             "The largest gathering to support and empower productive families",
-                        svg: AppIcons.shops,
+                        svg: AppIcons.rent,
                         title: "homeShopOwner.shops",
-                        borderColor: Colors.orangeAccent,
+                        borderColor: const Color.fromARGB(255, 229, 130, 0),
                         screen: AllShopsForUser(),
                         color: Colors.orangeAccent.shade400,
                       ),
-                      SizedBox(height: AppSize.getHeight(10)),
-                      // const CategoriesItems(),
-                      CustomActiveAndNotActiveInCategories(
-                        image: "assets/CashPayment.png",
-                        subtitle:
-                            "The largest gathering to support and empower productive families",
-                        svg: AppIcons.rent,
-                        title: "homeShopOwner.rent",
-                        borderColor: const Color(0xff74D778),
-                        screen: AllProductsForSellingAndRent(
-                            title: context.tr("homeShopOwner.rent"),
-                            isRent: true),
-                        color: Colors.green,
+                      SizedBox(height: AppSize.getHeight(05)),
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          CustomActiveAndNotActiveInCategories2(
+                              width: MediaQuery.of(context).size.width * 0.30,
+                              image: "assets/undraw_post-online_cjn9.png",
+                              subtitle: "",
+                              svg: AppIcons.delegate,
+                              title: "Scope",
+                              borderColor:
+                                  const Color.fromRGBO(255, 194, 10, 1),
+                              color: const Color.fromARGB(255, 255, 202, 45),
+                              screen: BlocProvider(
+                                  create: (_) =>
+                                      PostsCubit(postsRepo: PostsRepoImpel())
+                                        ..getPosts(null, null, null)
+                                        ..getCategory(),
+                                  child: ViewAllPosts())),
+
+                          SizedBox(width: AppSize.getWidth(05)),
+                          // const CategoriesItems(),
+                          Expanded(
+                            child: CustomActiveAndNotActiveInCategories(
+                              width: double.infinity,
+                              image: "assets/Ecommerce.png",
+                              subtitle:
+                                  "The largest gathering to support and empower productive families",
+                              svg: AppIcons.selling,
+                              title: "homeShopOwner.selling",
+                              borderColor: const Color(0xffEBFA6E),
+                              screen: AllProductsForSellingAndRent(
+                                title: context.tr("homeShopOwner.selling"),
+                              ),
+                              color: const Color(0xffd9e862),
+                            ),
+                          ),
+                        ],
                       ),
-                      SizedBox(height: AppSize.getHeight(10)),
-                      CustomActiveAndNotActiveInCategories(
-                        image: "assets/Ecommerce.png",
-                        subtitle:
-                            "The largest gathering to support and empower productive families",
-                        svg: AppIcons.selling,
-                        title: "homeShopOwner.selling",
-                        borderColor: const Color(0xffEBFA6E),
-                        screen: AllProductsForSellingAndRent(
-                          title: context.tr("homeShopOwner.selling"),
-                        ),
-                        color: const Color(0xffd9e862),
-                      ),
-                      SizedBox(height: AppSize.getHeight(10)),
-                      CustomActiveAndNotActiveInCategories(
-                        image: "assets/Free shipping-bro.png",
-                        subtitle:
-                            "The largest gathering to support and empower productive families",
-                        svg: AppIcons.delegate,
-                        title: "homeShopOwner.delegate",
-                        borderColor: const Color(0xff53C9FF),
-                        color: const Color(0xff57a5cb),
-                        screen: BlocProvider(
-                            create: (_) =>
-                                MapStoresCubit(mapRepo: MapRepoImpel())
+                      SizedBox(height: AppSize.getHeight(05)),
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Expanded(
+                            child: CustomActiveAndNotActiveInCategories(
+                              width: double.infinity,
+                              image: "assets/CashPayment.png",
+                              subtitle:
+                                  "The largest gathering to support and empower productive families",
+                              svg: AppIcons.rent,
+                              title: "homeShopOwner.rent",
+                              borderColor: const Color(0xff74D778),
+                              screen: AllProductsForSellingAndRent(
+                                  title: context.tr("homeShopOwner.rent"),
+                                  isRent: true),
+                              color: Colors.green,
+                            ),
+                          ),
+                          SizedBox(width: AppSize.getWidth(05)),
+
+                          CustomActiveAndNotActiveInCategories2(
+                            width: MediaQuery.of(context).size.width * 0.3,
+                            image: "assets/Free shipping-bro.png",
+                            subtitle: "",
+                            svg: AppIcons.delegate,
+                            title: "homeShopOwner.delegate",
+                            borderColor: const Color(0xff53C9FF),
+                            color: const Color(0xff57a5cb),
+                            screen: BlocProvider(
+                                create: (_) => MapStoresCubit(
+                                    mapRepo: MapRepoImpel())
                                   ..changeSelected(value: MapFilter.delivery),
-                            child: MapsView(showBack: true)),
+                                child: MapsView(showBack: true)),
+                          ),
+                          // const CategoriesItems(),
+                        ],
                       ),
-                      SizedBox(height: AppSize.getHeight(10)),
+                      SizedBox(height: AppSize.getHeight(05)),
                       CustomActiveAndNotActiveInCategories(
+                        width: double.infinity,
+                        hight: MediaQuery.of(context).size.height * 0.12,
                         image: "assets/123.png",
                         subtitle:
                             "The largest gathering to support and empower productive families",
                         svg: AppIcons.productiveFamilies,
-                        title: "homeShopOwner.productive",
+                        title: "Productive Families",
                         borderColor: const Color(0xffFFC2C8),
                         color: const Color(0xffef7a85),
                         screen: AllProductsForProductForProductiveFamily(),
                       ),
+                      // CustomActiveAndNotActiveInCategories(
+                      //   width: MediaQuery.of(context).size.width * 0.3,
+                      //   image: "assets/Ecommerce.png",
+                      //   subtitle:
+                      //       "The largest gathering to support and empower productive families",
+                      //   svg: AppIcons.selling,
+                      //   title: "homeShopOwner.selling",
+                      //   borderColor: const Color(0xffEBFA6E),
+                      //   screen: AllProductsForSellingAndRent(
+                      //     title: context.tr("homeShopOwner.selling"),
+                      //   ),
+                      //   color: const Color(0xffd9e862),
+                      // ),
+                      // SizedBox(height: AppSize.getHeight(10)),
+                      // CustomActiveAndNotActiveInCategories(
+                      //   width: MediaQuery.of(context).size.width * 0.3,
+                      //   image: "assets/Free shipping-bro.png",
+                      //   subtitle:
+                      //       "The largest gathering to support and empower productive families",
+                      //   svg: AppIcons.delegate,
+                      //   title: "homeShopOwner.delegate",
+                      //   borderColor: const Color(0xff53C9FF),
+                      //   color: const Color(0xff57a5cb),
+                      //   screen: BlocProvider(
+                      //       create: (_) =>
+                      //           MapStoresCubit(mapRepo: MapRepoImpel())
+                      //             ..changeSelected(value: MapFilter.delivery),
+                      //       child: MapsView(showBack: true)),
+                      // ),
+                      // SizedBox(height: AppSize.getHeight(10)),
+                      // CustomActiveAndNotActiveInCategories(
+                      //   width: MediaQuery.of(context).size.width * 0.3,
+                      //   image: "assets/123.png",
+                      //   subtitle:
+                      //       "The largest gathering to support and empower productive families",
+                      //   svg: AppIcons.productiveFamilies,
+                      //   title: "Productive Families",
+                      //   borderColor: const Color(0xffFFC2C8),
+                      //   color: const Color(0xffef7a85),
+                      //   screen: AllProductsForProductForProductiveFamily(),
+                      // ),
+                      // SizedBox(height: AppSize.getHeight(20)),
                       SizedBox(height: AppSize.getHeight(20)),
+
                       SvgPicture.asset(
                         AppIcons.wave,
                       ),

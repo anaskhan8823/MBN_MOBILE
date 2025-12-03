@@ -16,7 +16,7 @@ class CommentsStoreSection extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              addComment == true
+              CachHelper.role == "user"
                   ? GestureDetector(
                       onTap: () {
                         final cubit = context.read<StoreAndProductCubit>();

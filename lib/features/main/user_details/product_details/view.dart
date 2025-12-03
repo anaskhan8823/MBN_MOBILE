@@ -10,6 +10,7 @@ import 'package:dalil_2020_app/features/main/home/contact/presentation/view/deta
 import 'package:dalil_2020_app/features/main/home/map/presentation/control/map_stores_cubit.dart';
 import 'package:dalil_2020_app/features/widgets/comments_product_section.dart';
 import 'package:dalil_2020_app/features/widgets/customOutlineButton.dart';
+import 'package:dalil_2020_app/features/widgets/custom_service_container_product_details.dart';
 import 'package:dalil_2020_app/models/product_model.dart';
 import 'package:dalil_2020_app/models/user_model.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -146,24 +147,25 @@ class _ProductDetailsUserViewState extends State<ProductDetailsUserView> {
                               fit: BoxFit.cover,
                             ),
                           ),
-                    Positioned(
-                      bottom: 8,
-                      child: AnimatedSmoothIndicator(
-                        activeIndex: activeIndex,
-                        count: widget.productImage.length,
-                        effect: WormEffect(
-                          dotHeight: 8,
-                          dotWidth: 8,
-                          activeDotColor: Colors.black,
-                          dotColor: Colors.grey.shade400,
-                        ),
-                      ),
-                    ),
+                    // Positioned(
+                    //   bottom: 8,
+                    //   child: AnimatedSmoothIndicator(
+                    //     activeIndex: activeIndex,
+                    //     count: widget.productImage.length,
+                    //     effect: WormEffect(
+                    //       dotHeight: 8,
+                    //       dotWidth: 8,
+                    //       activeDotColor: Colors.black,
+                    //       dotColor: Colors.grey.shade400,
+                    //     ),
+                    //   ),
+                    // ),
                   ],
                 ),
               ),
 
               // 🔥 Details Section
+
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 22),
                 color: Theme.of(context).scaffoldBackgroundColor,
@@ -175,7 +177,7 @@ class _ProductDetailsUserViewState extends State<ProductDetailsUserView> {
                         rating: widget.rating ?? "",
                         name: widget.productName,
                         color: AppColors.primary),
-                    const SizedBox(height: 5),
+                    const SizedBox(height: 10),
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -212,9 +214,9 @@ class _ProductDetailsUserViewState extends State<ProductDetailsUserView> {
                               style: kTextStyle13.copyWith(
                                   color: const Color(0xff74D778)),
                             ),
-                            Text('otherDetails.monthly'.tr(),
-                                style:
-                                    kTextStyle13.copyWith(color: Colors.grey)),
+                            // Text('otherDetails.monthly'.tr(),
+                            //     style:
+                            //         kTextStyle13.copyWith(color: Colors.grey)),
                           ],
                         ),
                         // CustomSvg(svg: AppSvg.priceSolar),
@@ -241,7 +243,7 @@ class _ProductDetailsUserViewState extends State<ProductDetailsUserView> {
                         // ),
                       ],
                     ),
-                    const SizedBox(height: 15),
+
                     // Row(
                     //   children: [
                     //     Text(
@@ -253,92 +255,76 @@ class _ProductDetailsUserViewState extends State<ProductDetailsUserView> {
                     //         style: kTextStyle13.copyWith(color: Colors.grey)),
                     //   ],
                     // ),
-                    const SizedBox(height: 5),
+                    const SizedBox(height: 10),
                     ServiceForShopOwnerInStoreDetails(
                       subCategory: widget.subCategory,
                       category: widget.category,
                     ),
-                    const SizedBox(height: 15),
+                    const SizedBox(height: 18),
+                    SvgPicture.asset(AppIcons.wave),
+                    const SizedBox(height: 10),
+
                     Text('addProduct.storeDescription'.tr(),
-                        style: kTextStyle18iUnderLine),
+                        style: TextStyle(
+                            color: AppColors.primaryDark,
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold)),
                     const SizedBox(height: 10),
                     Text(
                       widget.description,
                       style: TextStyle(
                           color: AppColors.whiteAndGreyColor, fontSize: 12),
                     ),
-                    const SizedBox(height: 20),
-                    SvgPicture.asset(AppIcons.wave),
-                    const SizedBox(height: 20),
+                    // const SizedBox(height: 20),
+                    // SvgPicture.asset(AppIcons.wave),
+                    // const SizedBox(height: 20),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text("change.seller".tr(),
-                            style: kTextStyle18iUnderLine),
+                            style: TextStyle(
+                                color: AppColors.primaryDark,
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold)),
                         // Text("change.contact".tr(),
                         //     style: kTextStyle18iUnderLine),
                       ],
                     ),
                     const SizedBox(height: 10),
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.center,
+                      spacing: 10,
                       children: [
-                        // Left side: Icon + Name + Phone
                         Expanded(
-                          child: Row(
-                            children: [
-                              CircleAvatar(
-                                radius: 20,
-                                backgroundColor:
-                                    AppColors.primary.withOpacity(0.2),
-                                child: Icon(Icons.person,
-                                    color: AppColors.primary),
-                              ),
-                              const SizedBox(width: 10),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(widget.sellername, style: kTextStyle13),
-                                  const SizedBox(height: 5),
-                                  Text(widget.phone, style: kTextStyle13),
-                                ],
-                              ),
-                            ],
-                          ),
+                            child: CategoryButton(
+                                title: "Call",
+                                svg: Icon(
+                                  Icons.call,
+                                  color: AppColors.whiteAndOrangeColor,
+                                ))),
+                        Expanded(
+                          child: CategoryButton(
+                              title: "Location",
+                              svg: Icon(
+                                Icons.location_pin,
+                                color: AppColors.whiteAndOrangeColor,
+                              )),
                         ),
-
-                        // Right side: Chat button
-                        GestureDetector(
-                          onTap: () {
-                            // context.read<MapStoresCubit>().addRepresentative(
-                            //     context: context,
-                            //     representativeUser: UserModel());
-
-                            // AppNavigator.push(BlocProvider(
-                            //   create: (_) =>
-                            //       ManagerChatCubit(chatRepo: ChatRepoImpel())
-                            //         ..saveSelectedContact(ContactFromListModel(
-                            //             id: widget.productId,
-                            //             contactName: widget.sellername)),
-                            //   child: DetailsOfChat(),
-                            // ));
-                          },
-                          child: SizedBox(
-                            height: 35.h,
-                            width: MediaQuery.of(context).size.width * 0.22,
-                            child: CustomOutlinedButton(
-                              side: BorderSide(color: AppColors.primary),
-                              labelColor: AppColors.primary,
-                              label: "change.chat".tr(),
-                            ),
-                          ),
-                        ),
+                        Expanded(
+                          child: CategoryButton(
+                              title: "WhatsApp",
+                              svg: CustomSvg(
+                                svg: AppSvg.store,
+                                height: 20.h,
+                                width: 30.w,
+                                color: AppColors.whiteAndOrangeColor,
+                              )),
+                        )
                       ],
                     ),
-                    const SizedBox(height: 10),
-                    SvgPicture.asset(AppIcons.wave),
-                    const SizedBox(height: 10),
+
+                    // const SizedBox(height: 10),
+                    // SvgPicture.asset(AppIcons.wave),
+                    const SizedBox(height: 20),
                     CommentsForProduct(
                         addComment: widget.isowner,
                         productId: widget.productId),

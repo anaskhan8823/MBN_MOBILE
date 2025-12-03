@@ -154,6 +154,8 @@
 // }
 import 'package:dalil_2020_app/core/shared/widgets/auth_appbar.dart';
 import 'package:dalil_2020_app/features/auth/presentation/city_and_country/cubit/location_cubit.dart';
+import 'package:dalil_2020_app/features/main/productive_families_details/product_details/view.dart';
+import 'package:dalil_2020_app/features/main/user_details/product_details/view.dart';
 import 'package:dalil_2020_app/features/widgets/search_screen.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -417,24 +419,31 @@ class AllProductsForProductForProductiveFamily extends StatelessWidget {
                           return GestureDetector(
                             onTap: () {
                               AppNavigator.push(
-                                StoreDetailsUserView(
-                                  mainCategoryName:
-                                      stores.category?.first ?? '',
-                                  subCategoryName:
-                                      stores.subCategory?.first ?? '',
-                                  address: '',
-                                  workTimes: [],
-                                  location: null,
-                                  phone: stores.sellerPhone ?? '',
-                                  storeId: stores.id ?? 0,
-                                  rating: (stores.rating ?? 0).toString(),
-                                  storeName: isEn
+                                ProductDetailsUserView(
+                                  sellername: stores.productName.toString(),
+                                  category: stores.category?.isNotEmpty == true
+                                      ? stores.category![0]
+                                      : '',
+                                  subCategory:
+                                      stores.subCategory?.isNotEmpty == true
+                                          ? stores.subCategory![0]
+                                          : '',
+                                  description: isEn
+                                      ? stores.productDescription?.en ?? ''
+                                      : stores.productDescription?.ar ?? '',
+                                  productId: stores.id ?? 0,
+                                  productImage: stores.images ?? [],
+                                  rating: stores.rating.toString() ?? "0",
+                                  recentPrice: stores.price?.toString() ?? '',
+                                  productName: isEn
                                       ? stores.productName?.en ?? ''
                                       : stores.productName?.ar ?? '',
-                                  storeImage:
-                                      (stores.images?.isNotEmpty ?? false)
-                                          ? stores.images!.first.url ?? ''
-                                          : '',
+                                  phone: stores.sellerPhone.toString(),
+                                  saleType: stores.saleType ?? '',
+                                  oldPrice:
+                                      stores.priceAfterDiscount?.toString() ??
+                                          '',
+                                  userName: stores.sellerName ?? '',
                                 ),
                               );
                             },
@@ -450,7 +459,9 @@ class AllProductsForProductForProductiveFamily extends StatelessWidget {
                                     : '',
                                 rating: (stores.rating ?? 0).toString(),
                                 address: '',
-                                storeName: stores.productName.toString(),
+                                storeName: isEn
+                                    ? (stores.productName?.en ?? '')
+                                    : (stores.productName?.ar ?? ''),
                               ),
                             ),
                           );

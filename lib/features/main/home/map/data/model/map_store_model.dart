@@ -4,7 +4,7 @@ class MapStoresModel {
   int? id;
   StoreName? storeName;
   StoreName? description;
-  List<String>? images;
+  List<Images>? images;
   ContactInfo? contactInfo;
   List<String>? category;
   List<String>? subCategory;
@@ -37,8 +37,9 @@ class MapStoresModel {
     description = json['description'] != null
         ? StoreName.fromJson(json['description'])
         : null;
-    images =
-        (json['images'] as List?)?.map((e) => e['url'].toString()).toList();
+
+    images = (json['images'] as List?)?.map((e) => Images.fromJson(e)).toList();
+
     contactInfo = json['contact_info'] != null
         ? ContactInfo.fromJson(json['contact_info'])
         : null;

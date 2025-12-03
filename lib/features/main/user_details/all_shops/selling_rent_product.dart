@@ -1,3 +1,4 @@
+import 'package:dalil_2020_app/models/product_model.dart';
 import 'package:dalil_2020_app/models/store_model.dart';
 
 class SellingAndRentProduct {
@@ -9,7 +10,7 @@ class SellingAndRentProduct {
   List<String>? category;
   List<String>? subCategory;
   String? saleType;
-  List<Images>? images;
+  List<ProductImage>? images;
   int? rating;
   int? totalViews;
   int? orders;
@@ -52,7 +53,7 @@ class SellingAndRentProduct {
     saleType = json['sale_type'];
     images:
     json['images'] != null
-        ? List<Images>.from(json['images'].map((x) => Images.fromJson(x)))
+        ? List<ProductImage>.from(json['images'].map((x) => Images.fromJson(x)))
         : [];
     totalViews = json['total_views'];
     orders = json['orders'];

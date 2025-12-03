@@ -92,54 +92,55 @@ class StoreCardForUser extends StatelessWidget {
                     SizedBox(
                       height: AppSize.getHeight(8),
                     ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Expanded(
-                          child: Row(
-                            spacing: 2,
-                            children: [
-                              CustomSvg(
-                                svg: AppIcons.eyeOpen,
-                                color: AppColors.primary,
-                                height: 14.h,
-                              ),
-                              Text(
-                                overflow: TextOverflow.ellipsis,
-                                "1",
-                                style: TextStyle(
-                                  color: AppColors.labelInputColor,
-                                  fontSize: AppSize.getSize(12),
-                                  fontWeight: FontWeight.w600,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        Expanded(
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            spacing: 2,
-                            children: [
-                              CustomSvg(
-                                svg: AppIcons.box,
-                                color: AppColors.primary,
-                                height: 14.h,
-                              ),
-                              Text(
-                                overflow: TextOverflow.ellipsis,
-                                "1.1",
-                                style: TextStyle(
-                                  color: AppColors.labelInputColor,
-                                  fontSize: AppSize.getSize(12),
-                                  fontWeight: FontWeight.w600,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
+                    // Row(
+                    //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    //   children: [
+                    //     Expanded(
+                    //       child: Row(
+                    //         spacing: 2,
+                    //         children: [
+                    //           CustomSvg(
+                    //             svg: AppIcons.eyeOpen,
+                    //             color: AppColors.primary,
+                    //             height: 14.h,
+                    //           ),
+                    //           Text(
+                    //             overflow: TextOverflow.ellipsis,
+                    //             "1",
+                    //             style: TextStyle(
+                    //               color: AppColors.labelInputColor,
+                    //               fontSize: AppSize.getSize(12),
+                    //               fontWeight: FontWeight.w600,
+                    //             ),
+                    //           ),
+                    //         ],
+                    //       ),
+                    //     ),
+                    //     Expanded(
+                    //       child: Row(
+                    //         mainAxisAlignment: MainAxisAlignment.end,
+                    //         spacing: 2,
+                    //         children: [
+                    //           CustomSvg(
+                    //             svg: AppIcons.box,
+                    //             color: AppColors.primary,
+                    //             height: 14.h,
+                    //           ),
+                    //           Text(
+                    //             overflow: TextOverflow.ellipsis,
+                    //             "1.1",
+                    //             style: TextStyle(
+                    //               color: AppColors.labelInputColor,
+                    //               fontSize: AppSize.getSize(12),
+                    //               fontWeight: FontWeight.w600,
+                    //             ),
+                    //           ),
+                    //         ],
+                    //       ),
+                    //     ),
+                    //   ],
+                    // ),
+
                     SizedBox(
                       height: AppSize.getHeight(8),
                     ),

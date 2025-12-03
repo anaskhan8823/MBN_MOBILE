@@ -42,82 +42,78 @@ class ProductCardForUser extends StatelessWidget {
           border: Border.all(width: 2, color: AppColors.primary),
           borderRadius: BorderRadius.circular(16)),
       child: Column(
-        spacing: 7,
+        spacing: 10,
         children: [
-          Expanded(
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(15),
-              child: Image.network(
-                productImage,
-                height: MediaQuery.of(context).size.height * 0.21,
-                errorBuilder: (context, error, stackTrace) {
-                  return Image.asset(
-                    AppImages.products,
-                    height: MediaQuery.of(context).size.height * 0.17,
-                    fit: BoxFit.cover,
-                    width: double.infinity,
-                  );
-                },
-                width: double.infinity,
-                fit: BoxFit.cover,
-              ),
+          ClipRRect(
+            borderRadius: BorderRadius.circular(15),
+            child: Image.network(
+              productImage,
+              height: MediaQuery.of(context).size.height * 0.12,
+              errorBuilder: (context, error, stackTrace) {
+                return Image.asset(
+                  AppImages.products,
+                  height: MediaQuery.of(context).size.height * 0.12,
+                  fit: BoxFit.cover,
+                  width: double.infinity,
+                );
+              },
+              width: double.infinity,
+              fit: BoxFit.cover,
             ),
           ),
-          Expanded(
-            flex: 2,
-            child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 10),
-              child: Column(
-                spacing: AppSize.getHeight(6),
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    productName,
-                    style: kTextStyle16white,
-                  ),
-                  Row(
-                    children: [
-                      Expanded(
-                          flex: 2, child: CustomSvg(svg: AppSvg.priceSolar)),
-                      Expanded(
-                        flex: 0,
-                        child:
-                            Text(recentPrice, style: kTextStyle10WhiteAndBlack),
-                      ),
-                      Expanded(
-                        flex: 0,
-                        child: Text(
-                          "sar".tr(),
-                          style:
-                              kTextStyle10WhiteAndBlack.copyWith(fontSize: 8),
-                        ),
-                      ),
-                      const Spacer(),
-                      Expanded(
-                        flex: 0,
-                        child: Text(
-                          "addProduct.oldPrice".tr(),
-                          style: TextStyle(
-                              fontSize: AppSize.font(10),
-                              color: AppColors.primary),
-                        ),
-                      ),
-                      Expanded(
-                          flex: 0,
-                          child: Text(" $oldPrice ",
-                              style: kTextStyle9GreyLineThrough)),
-                    ],
-                  ),
-                  if (putEditAndDeleteButtons == true) ...{
-                    EditDetailsAndDeleteProductButtons(
-                      onTap: onEdit ?? () {},
-                      productId: productId,
-                      color: null,
-                      onDeleteProduct: onDeleteProduct ?? () {},
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 08),
+            child: Column(
+              spacing: AppSize.getHeight(10),
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  productName,
+                  style: kTextStyle16white,
+                ),
+                Row(
+                  children: [
+                    Expanded(flex: 0, child: CustomSvg(svg: AppSvg.priceSolar)),
+                    SizedBox(
+                      width: 4,
                     ),
-                  },
-                ],
-              ),
+                    Expanded(
+                      flex: 0,
+                      child:
+                          Text(recentPrice, style: kTextStyle10WhiteAndBlack),
+                    ),
+                    Expanded(
+                      flex: 0,
+                      child: Text(
+                        "sar".tr(),
+                        style: kTextStyle10WhiteAndBlack.copyWith(fontSize: 8),
+                      ),
+                    ),
+                    const Spacer(),
+                    Expanded(
+                      flex: 0,
+                      child: Text(
+                        "addProduct.oldPrice".tr(),
+                        style: TextStyle(
+                            fontSize: AppSize.font(10),
+                            color: AppColors.primary),
+                      ),
+                    ),
+                    Expanded(
+                        flex: 0,
+                        child: Text(" $oldPrice ",
+                            style: kTextStyle9GreyLineThrough)),
+                  ],
+                ),
+                if (putEditAndDeleteButtons == true) ...{
+                  EditDetailsAndDeleteProductButtons(
+                    onTap: onEdit ?? () {},
+                    productId: productId,
+                    color: null,
+                    onDeleteProduct: onDeleteProduct ?? () {},
+                  ),
+                },
+              ],
             ),
           )
         ],

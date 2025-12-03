@@ -182,7 +182,7 @@ class _AllStoresState extends State<AllStores> {
                                   ? stores.images!.first.url ?? ''
                                   : '',
                               products: stores.productsCount ?? 0,
-                              rating: stores.rating.toString() ?? "0",
+                              rating: stores.rating.toString() ?? "0.0",
                               storeName: isEn
                                   ? stores.storeName?.en ?? ''
                                   : stores.storeName?.ar ?? '',

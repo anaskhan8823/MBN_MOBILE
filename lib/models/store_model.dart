@@ -159,7 +159,11 @@ class Product {
             ? List<String>.from(json['sub_category'])
             : [],
         saleType: json['sale_type']?.toString(),
-        rating: json['rating'],
+        rating: json['rating'] == null
+            ? 0.0
+            : (json['rating'] is num
+                ? json['rating']
+                : num.tryParse(json['rating'].toString()) ?? 0.0),
         image: json['image'] != null
             ? List<ProductImage>.from(
                 json['image'].map((x) => ProductImage.fromJson(x)))

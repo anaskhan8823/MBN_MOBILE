@@ -41,7 +41,7 @@ class StoreDetailsUserView extends StatefulWidget {
     required this.subCategoryName,
     required this.mainCategoryName,
   });
-  final String storeImage;
+  final List<Images> storeImage;
   final String storeName;
   final String rating;
   final Location? location;
@@ -96,13 +96,14 @@ class _StoreDetailsUserViewState extends State<StoreDetailsUserView> {
                 child: Stack(
                   alignment: Alignment.bottomCenter,
                   children: [
-                    images.isNotEmpty
+                    widget.storeImage.isNotEmpty
                         ? CarouselSlider.builder(
-                            itemCount: images.length,
+                            itemCount: widget.storeImage.length,
                             itemBuilder: (context, index, realIndex) {
-                              final url = images[index];
+                              final url = widget.storeImage[index];
+                              print("urlurlurlurlurlurl$url");
                               return Image.network(
-                                url!,
+                                url.url.toString(),
                                 height:
                                     MediaQuery.of(context).size.height * 0.4,
                                 width: double.infinity,
@@ -136,19 +137,19 @@ class _StoreDetailsUserViewState extends State<StoreDetailsUserView> {
                               fit: BoxFit.cover,
                             ),
                           ),
-                    Positioned(
-                      bottom: 8,
-                      child: AnimatedSmoothIndicator(
-                        activeIndex: activeIndex,
-                        count: images.length,
-                        effect: WormEffect(
-                          dotHeight: 8,
-                          dotWidth: 8,
-                          activeDotColor: Colors.black,
-                          dotColor: Colors.grey.shade400,
-                        ),
-                      ),
-                    ),
+                    // Positioned(
+                    //   bottom: 8,
+                    //   child: AnimatedSmoothIndicator(
+                    //     activeIndex: activeIndex,
+                    //     count: widget.storeImage.length,
+                    //     effect: WormEffect(
+                    //       dotHeight: 8,
+                    //       dotWidth: 8,
+                    //       activeDotColor: Colors.black,
+                    //       dotColor: Colors.grey.shade400,
+                    //     ),
+                    //   ),
+                    // ),
                   ],
                 ),
               ),
@@ -228,58 +229,63 @@ class _StoreDetailsUserViewState extends State<StoreDetailsUserView> {
                             : SizedBox(
                                 height: products.length == 1
                                     ? MediaQuery.of(context).size.height * 0.3
-                                    : products.length * 125.h,
+                                    : products.length * 60.h,
                                 child: GridView.builder(
-                                  physics: const NeverScrollableScrollPhysics(),
-                                  padding:
-                                      EdgeInsets.symmetric(horizontal: 0.w),
+                                  scrollDirection: Axis.horizontal,
+                                  padding: EdgeInsets.zero,
                                   itemCount: products.length,
                                   gridDelegate:
                                       const SliverGridDelegateWithFixedCrossAxisCount(
-                                          crossAxisCount: 2,
-                                          childAspectRatio: 0.8),
+                                    crossAxisCount: 1, // 2 rows
+                                    childAspectRatio: 0.9, // same as before
+                                  ),
                                   itemBuilder: (context, index) {
                                     final product = products[index];
+
                                     return GestureDetector(
                                       onTap: () {
-                                        print("objectddd ${product.images!}");
                                         AppNavigator.push(
-                                            ProductDetailsUserView(
-                                          isowner: true,
-                                          sellername: widget.storeName,
-                                          category: product.category!.isNotEmpty
-                                              ? product.category![0]
-                                              : '',
-                                          subCategory:
-                                              product.subCategory!.isNotEmpty
-                                                  ? product.subCategory![0]
-                                                  : '',
-                                          description: isEn
-                                              ? product.description?.en ?? ''
-                                              : product.description?.ar ?? '',
-                                          productId: product.id ?? 0,
-                                          productImage: product.images!,
-                                          rating:
-                                              product.rating.toString() ?? "0",
-                                          recentPrice: product.price ?? '',
-                                          productName: isEn
-                                              ? product.productName?.en ?? ''
-                                              : product.productName?.ar ?? '',
-                                          phone: widget.phone ?? '',
-                                          saleType: product.saleType ?? '',
-                                          oldPrice:
-                                              product.priceAfterDiscount ?? '',
-                                          userName: " product.sellerName" ?? '',
-                                        ));
+                                          ProductDetailsUserView(
+                                            isowner: true,
+                                            sellername: widget.storeName,
+                                            category:
+                                                product.category?.isNotEmpty ==
+                                                        true
+                                                    ? product.category![0]
+                                                    : '',
+                                            subCategory: product.subCategory
+                                                        ?.isNotEmpty ==
+                                                    true
+                                                ? product.subCategory![0]
+                                                : '',
+                                            description: isEn
+                                                ? product.description?.en ?? ''
+                                                : product.description?.ar ?? '',
+                                            productId: product.id ?? 0,
+                                            productImage: product.images ?? [],
+                                            rating: product.rating.toString(),
+                                            recentPrice: product.price ?? '',
+                                            productName: isEn
+                                                ? product.productName?.en ?? ''
+                                                : product.productName?.ar ?? '',
+                                            phone: widget.phone ?? '',
+                                            saleType: product.saleType ?? '',
+                                            oldPrice:
+                                                product.priceAfterDiscount ??
+                                                    '',
+                                            userName: product.sellerName ?? '',
+                                          ),
+                                        );
                                       },
                                       child: Padding(
                                         padding: EdgeInsets.symmetric(
-                                            vertical: AppSize.getHeight(8),
-                                            horizontal: 4),
+                                          vertical: AppSize.getHeight(8),
+                                          horizontal: 4,
+                                        ),
                                         child: ProductCardForUser(
                                           storeId: widget.storeId,
                                           productImage:
-                                              product.images!.isNotEmpty
+                                              product.images?.isNotEmpty == true
                                                   ? product.images![0].url ?? ''
                                                   : '',
                                           productId: product.id ?? 0,

@@ -115,10 +115,9 @@ class AllShopsForUserWithSearchResult extends StatelessWidget {
                         storeName: isEn
                             ? (store.storeName?.en ?? '')
                             : (store.storeName?.ar ?? ''),
-                        storeImage:
-                            (store.images != null && store.images!.isNotEmpty)
-                                ? store.images![0].url ?? ''
-                                : '',
+                        storeImage: stores.images?.isNotEmpty == true
+                            ? stores.images!
+                            : [],
                       ));
                     },
                     child: Padding(

@@ -82,11 +82,15 @@ class CustomActiveAndNotActiveInCategories extends StatefulWidget {
       required this.svg,
       required this.title,
       required this.subtitle,
+      required this.width,
+      this.hight,
       required this.image,
       required this.borderColor,
       required this.color,
       this.screen});
   final String svg;
+  final double width;
+  final double? hight;
   final String image;
   final String title;
   final String subtitle;
@@ -118,11 +122,14 @@ class _CustomActiveAndNotActiveInCategoriesState
       spacing: AppSize.getHeight(10),
       children: [
         GestureDetector(
-          onTap: isDark
-              ? () => toggleActive(widget.screen)
-              : () => AppNavigator.push(widget.screen!),
+          onTap:
+              // isDark
+              // ?
+              () => toggleActive(widget.screen),
+          // : () => AppNavigator.push(widget.screen!),
           child: Container(
-              width: double.infinity,
+              width: widget.width,
+              height: widget.hight ?? MediaQuery.of(context).size.height * 0.18,
               padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 14),
               decoration: BoxDecoration(
                   color: isActive == false && isDark
@@ -144,7 +151,7 @@ class _CustomActiveAndNotActiveInCategoriesState
               //   width: AppSize.getWidth(50),
               // ),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   Expanded(
                     child: Column(
@@ -162,7 +169,7 @@ class _CustomActiveAndNotActiveInCategoriesState
                         Text(
                           widget.subtitle,
                           style: kTextStyle14white.copyWith(
-                            fontSize: 12,
+                            fontSize: 10,
                             color: AppColors.labelInputColor,
                           ),
                         ),
@@ -173,8 +180,8 @@ class _CustomActiveAndNotActiveInCategoriesState
                   Image.asset(
                     fit: BoxFit.fitHeight,
                     widget.image.toString(),
-                    width: 95,
-                    height: 95,
+                    width: 80,
+                    height: 85,
                   ),
                 ],
               )),

@@ -269,7 +269,7 @@ class AllShopsForUser extends StatelessWidget {
                                 gridDelegate:
                                     const SliverGridDelegateWithFixedCrossAxisCount(
                                         crossAxisCount: 2,
-                                        childAspectRatio: 0.72),
+                                        childAspectRatio: 0.75),
                                 itemBuilder: (context, index) {
                                   final isEn =
                                       context.locale.languageCode == 'en';
@@ -290,14 +290,14 @@ class AllShopsForUser extends StatelessWidget {
                                             store.contactInfo?.mobileNumber ??
                                                 '',
                                         storeId: store.id ?? 0,
-                                        rating: store.rating ?? "0",
+                                        rating: store.rating!,
                                         storeName: isEn
                                             ? store.storeName?.en ?? ''
                                             : store.storeName?.ar ?? '',
                                         storeImage:
                                             store.images?.isNotEmpty == true
-                                                ? store.images![0].url ?? ''
-                                                : '',
+                                                ? store.images!
+                                                : [],
                                       ));
                                     },
                                     child: Padding(

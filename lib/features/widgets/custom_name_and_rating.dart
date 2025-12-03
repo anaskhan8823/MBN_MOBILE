@@ -25,7 +25,7 @@ class CustomNameAndItsRating extends StatelessWidget {
                     color: color, fontSize: 18, fontWeight: FontWeight.bold)),
             RatingWidget(
               startFirst: true,
-              rating: rating,
+              rating: rating.toString() != "null" ? rating.toString() : "0.0",
               color: color,
             ),
           ],

@@ -1,3 +1,4 @@
+import 'package:dalil_2020_app/core/cache/cache_helper.dart';
 import 'package:dalil_2020_app/core/style/app_size.dart';
 import 'package:dalil_2020_app/features/main/controller/product_cubit/product_cubit.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -29,7 +30,8 @@ class CommentsForProduct extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              addComment == true
+              // addComment == true
+              CachHelper.role == "user"
                   ? GestureDetector(
                       onTap: () {
                         final cubit = context.read<StoreAndProductCubit>();
@@ -42,7 +44,10 @@ class CommentsForProduct extends StatelessWidget {
                       child: Row(
                         children: [
                           Text('addProduct.comments'.tr(),
-                              style: kTextStyle18iUnderLine),
+                              style: TextStyle(
+                                  color: AppColors.primaryDark,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold)),
                           const Spacer(),
                           Icon(
                             Icons.add,
@@ -54,6 +59,9 @@ class CommentsForProduct extends StatelessWidget {
                     )
                   : Text('addProduct.comments'.tr(),
                       style: kTextStyle18iUnderLine),
+              SizedBox(
+                height: 20,
+              ),
               Column(
                 spacing: 10,
                 children: [
@@ -101,7 +109,7 @@ class CommentsForProduct extends StatelessWidget {
                                 color: color ?? AppColors.primary),
                           )
                         ],
-                      )
+                      ),
                     } else if (state.comment.isEmpty) ...{
                       Center(
                           child: Text(

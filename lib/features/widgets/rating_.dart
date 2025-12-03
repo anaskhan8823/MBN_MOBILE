@@ -42,10 +42,23 @@ class RatingWidget extends StatelessWidget {
                 width: 22,
                 height: 18,
               ),
-              Text(rating.toString() ?? "",
-                  style: kTextStyle13.copyWith(
-                      fontSize: 10, color: AppColors.whiteAndBlackColor)),
+              Text(
+                _formatRating(rating),
+                style: kTextStyle13.copyWith(
+                  fontSize: 10,
+                  color: AppColors.whiteAndBlackColor,
+                ),
+              )
             ],
           );
   }
+}
+
+String _formatRating(dynamic rating) {
+  if (rating == null) return "0.0";
+
+  final num? value = num.tryParse(rating.toString());
+  if (value == null) return "0.0";
+
+  return value.toStringAsFixed(1);
 }

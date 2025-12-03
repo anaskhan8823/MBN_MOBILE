@@ -1,6 +1,7 @@
 import 'package:dalil_2020_app/core/shared/widgets/auth_appbar.dart';
 import 'package:dalil_2020_app/core/shared/widgets/custom_button.dart';
 import 'package:dalil_2020_app/features/auth/presentation/city_and_country/cubit/location_cubit.dart';
+import 'package:dalil_2020_app/features/main/user_details/product_details/view.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -56,6 +57,7 @@ class AllProductsForSellingAndRent extends StatelessWidget {
 
           return Scaffold(
             appBar: AuthAppbar(
+              // color: ,
               actions: [
                 Padding(
                   padding: const EdgeInsets.all(12.0),
@@ -363,13 +365,13 @@ class AllProductsForSellingAndRent extends StatelessWidget {
                       stateStore.stores.isNotEmpty
                           ? Expanded(
                               child: GridView.builder(
-                                padding: EdgeInsets.symmetric(horizontal: 15.w),
+                                padding: EdgeInsets.symmetric(horizontal: 08.w),
                                 itemCount:
                                     Utils.items('', stateStore.stores.length),
                                 gridDelegate:
                                     const SliverGridDelegateWithFixedCrossAxisCount(
                                         crossAxisCount: 2,
-                                        childAspectRatio: 0.67),
+                                        childAspectRatio: 0.73),
                                 itemBuilder: (context, index) {
                                   final isEn =
                                       context.locale.languageCode == 'en';
@@ -377,10 +379,16 @@ class AllProductsForSellingAndRent extends StatelessWidget {
                                   return GestureDetector(
                                     onTap: () {
                                       AppNavigator.push(StoreDetailsUserView(
-                                        mainCategoryName:
-                                            stores.category?[0] ?? '',
+                                       mainCategoryName:
+                                            stores.category?.isNotEmpty == true
+                                                ? stores.category!.first
+                                                : '',
                                         subCategoryName:
-                                            stores.subCategory?[0] ?? '',
+                                            stores.subCategory?.isNotEmpty ==
+                                                    true
+                                                ? stores.subCategory!.first
+                                                : '',
+
                                         address: '',
                                         workTimes: [],
                                         location: null,
@@ -390,10 +398,10 @@ class AllProductsForSellingAndRent extends StatelessWidget {
                                         storeName: isEn
                                             ? stores.productName?.en ?? ''
                                             : stores.productName?.ar ?? '',
-                                        storeImage:
-                                            stores.images?.isNotEmpty == true
-                                                ? stores.images![0].url!
-                                                : '',
+                                        storeImage: [],
+                                        // stores.images?.isNotEmpty == true
+                                        //     ? stores.images!
+                                        //     : [],
                                       ));
                                     },
                                     child: Padding(
@@ -408,7 +416,7 @@ class AllProductsForSellingAndRent extends StatelessWidget {
                                                 ? stores.images![0].url!
                                                 : '',
                                         rating: (stores.rating ?? 0).toString(),
-                                        address: '',
+                                        address: stores.orders.toString(),
                                         storeName: isEn
                                             ? stores.productName?.en ?? ''
                                             : stores.productName?.ar ?? '',
