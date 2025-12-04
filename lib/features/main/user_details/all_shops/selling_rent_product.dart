@@ -39,22 +39,28 @@ class SellingAndRentProduct {
     productName = json['product_name'] != null
         ? ProductName.fromJson(json['product_name'])
         : null;
+
     productDescription = json['product_description'] != null
         ? ProductName.fromJson(json['product_description'])
         : null;
-    price = json['price'];
-    priceAfterDiscount:
-    json['price_after_discount']?.toString();
+
+    price = json['price']?.toString();
+    priceAfterDiscount = json['price_after_discount']?.toString();
+
     category =
         json['category'] != null ? List<String>.from(json['category']) : null;
+
     subCategory = json['sub_category'] != null
         ? List<String>.from(json['sub_category'])
         : null;
+
     saleType = json['sale_type'];
-    images:
-    json['images'] != null
-        ? List<ProductImage>.from(json['images'].map((x) => Images.fromJson(x)))
+
+    images = json['image'] != null
+        ? List<ProductImage>.from(
+            json['image'].map((x) => ProductImage.fromJson(x)))
         : [];
+
     totalViews = json['total_views'];
     orders = json['orders'];
     rating = json['rating'];
@@ -65,20 +71,29 @@ class SellingAndRentProduct {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = {};
     data['id'] = id;
-    if (productName != null) data['product_name'] = productName!.toJson();
-    if (productDescription != null)
+
+    if (productName != null) {
+      data['product_name'] = productName!.toJson();
+    }
+
+    if (productDescription != null) {
       data['product_description'] = productDescription!.toJson();
+    }
+
     data['price'] = price;
     data['price_after_discount'] = priceAfterDiscount;
     data['category'] = category;
     data['sub_category'] = subCategory;
     data['sale_type'] = saleType;
-    data['images'] = images;
+
+    data['image'] = images?.map((x) => x.toJson()).toList();
+
     data['total_views'] = totalViews;
     data['orders'] = orders;
     data['rating'] = rating;
     data['seller_name'] = sellerName;
     data['seller_phone'] = sellerPhone;
+
     return data;
   }
 }

@@ -25,9 +25,9 @@ class CustomSliderItem extends StatelessWidget {
               CarouselSlider(
                 options: CarouselOptions(
                     height: AppSize.getHeight(170),
-                    enlargeCenterPage: true,
+                    enlargeCenterPage: false,
                     autoPlay: true,
-                    viewportFraction: 0.9,
+                    viewportFraction: 1.0,
                     onPageChanged: (index, reason) {
                       cubit.changeSliderIndex(index);
                     }),
@@ -35,7 +35,7 @@ class CustomSliderItem extends StatelessWidget {
                   return Builder(
                     builder: (BuildContext context) {
                       return Container(
-                        width: MediaQuery.of(context).size.width,
+                        width: MediaQuery.of(context).size.width * 0.9,
                         decoration: BoxDecoration(
                           border: Border.all(
                               color: color ?? AppColors.primary, width: 4),

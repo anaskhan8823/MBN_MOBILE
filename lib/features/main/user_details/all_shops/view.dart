@@ -264,6 +264,7 @@ class AllShopsForUser extends StatelessWidget {
                       stateStore.stores.isNotEmpty
                           ? Expanded(
                               child: GridView.builder(
+                                key: PageStorageKey('storeGridView'),
                                 padding: EdgeInsets.symmetric(horizontal: 4.w),
                                 itemCount: stateStore.stores.length,
                                 gridDelegate:

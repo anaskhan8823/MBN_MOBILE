@@ -1,6 +1,7 @@
 import 'package:dalil_2020_app/core/helper/app_navigator.dart';
 import 'package:dalil_2020_app/features/main/user_details/shop_details/view.dart';
 import 'package:dalil_2020_app/features/widgets/storeCard.dart';
+import 'package:dalil_2020_app/features/widgets/store_card_for_user.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -47,16 +48,17 @@ class MyStores extends StatelessWidget {
                     return Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 6.0),
                       child: GestureDetector(
-                        child: StoreCard(
+                        child: StoreCardForUser(
                           imageUrl: (list[index].images?.isNotEmpty == true)
                               ? (list[index].images?.first.url ?? '')
                               : '',
-                          products: list[index].products ?? 0,
                           rating: "${list[index].rating ?? 0}",
                           storeName: isEn
                               ? list[index].storeName?.en ?? ''
                               : list[index].storeName?.ar ?? '',
-                          views: 120,
+                          address: list[index].contactInfo!.address.toString(),
+                          phone:
+                              list[index].contactInfo!.mobileNumber.toString(),
                         ),
                         onTap: () {
                           // worktimelocaion

@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dalil_2020_app/core/style/app_size.dart';
 import 'package:dalil_2020_app/core/style/text_style.dart';
 import 'package:dalil_2020_app/features/widgets/rating_.dart';
@@ -37,26 +38,30 @@ class StoreCardForUser extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
-            padding: const EdgeInsets.all(4.0),
-            child: ClipRRect(
-                borderRadius: const BorderRadius.all(
-                  Radius.circular(18),
-                ),
-                child: Image.network(
-                  imageUrl,
+              padding: const EdgeInsets.all(4.0),
+              child: ClipRRect(
+                borderRadius: const BorderRadius.all(Radius.circular(18)),
+                child: CachedNetworkImage(
+                  key: ValueKey(imageUrl), // important for rebuilds
+                  imageUrl: imageUrl,
                   height: MediaQuery.of(context).size.height * 0.16,
                   width: double.infinity,
                   fit: BoxFit.cover,
-                  errorBuilder: (context, error, stackTrace) {
-                    return Image.asset(
-                      AppImages.products,
-                      width: double.infinity,
-                      height: MediaQuery.of(context).size.height * 0.16,
-                      fit: BoxFit.cover,
-                    );
-                  },
-                )),
-          ),
+                  placeholder: (context, url) => Container(
+                    height: MediaQuery.of(context).size.height * 0.16,
+                    width: double.infinity,
+                    color: Colors.grey.shade200,
+                  ),
+                  errorWidget: (context, url, error) => Image.asset(
+                    AppImages.products,
+                    width: double.infinity,
+                    height: MediaQuery.of(context).size.height * 0.16,
+                    fit: BoxFit.cover,
+                  ),
+                  fadeInDuration:
+                      const Duration(milliseconds: 300), // smooth fade
+                ),
+              )),
           SizedBox(
             height: AppSize.getHeight(8),
           ),

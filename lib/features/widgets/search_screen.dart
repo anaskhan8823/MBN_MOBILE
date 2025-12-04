@@ -58,8 +58,8 @@ class CategoryView extends StatelessWidget {
                         locCubit.clearCitySelection();
                       },
                       codeAndNameOfCountry: false,
-                      label:
-                          cubit.country.text ?? context.tr('sign_up.country'),
+                      label: locCubit.selectedCountry ??
+                          context.tr('sign_up.country'),
                     ),
                     // : SizedBox(),
 
@@ -87,10 +87,10 @@ class CategoryView extends StatelessWidget {
                           }
                         },
                         cubit: locCubit,
-                      )
+                      ),
+                      SizedBox(height: 10),
                       // : SizedBox()
                     ],
-                    const SizedBox(height: 10),
 
                     /// ------------------ CATEGORY ------------------
                     // DropdownButtonFormField<int>(
@@ -123,8 +123,6 @@ class CategoryView extends StatelessWidget {
                     //   ),
                     // ),
 
-                    const SizedBox(height: 20),
-
                     /// ------------------ APPLY BUTTON ------------------
                     ///
                     ///
@@ -141,6 +139,10 @@ class CategoryView extends StatelessWidget {
                         hint: Row(
                           spacing: 5,
                           children: [
+                            CustomSvg(
+                              svg: AppSvg.saleType,
+                              color: AppColors.iconColor,
+                            ),
                             Text('addProduct.allC'.tr(),
                                 style: TextStyle(
                                     color: AppColors.whiteAndBlackColor)),
@@ -194,6 +196,10 @@ class CategoryView extends StatelessWidget {
                                 cubit.selectedSubCategory, value!);
                           },
                           hint: Row(spacing: 5, children: [
+                            CustomSvg(
+                              svg: AppSvg.saleType,
+                              color: AppColors.iconColor,
+                            ),
                             Text(
                               "addStore.sub".tr(),
                               style: kTextStyle12whiteAndBlack.copyWith(
@@ -219,6 +225,8 @@ class CategoryView extends StatelessWidget {
                     ///
                     ///
                     ///
+                    ///
+                    const SizedBox(height: 10),
                     product
                         ? CustomDropButton(
                             dropButton: DropdownButton<String>(

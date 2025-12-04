@@ -229,7 +229,7 @@ class _StoreDetailsUserViewState extends State<StoreDetailsUserView> {
                             : SizedBox(
                                 height: products.length == 1
                                     ? MediaQuery.of(context).size.height * 0.3
-                                    : products.length * 60.h,
+                                    : products.length * 62.h,
                                 child: GridView.builder(
                                   scrollDirection: Axis.horizontal,
                                   padding: EdgeInsets.zero,
@@ -237,7 +237,7 @@ class _StoreDetailsUserViewState extends State<StoreDetailsUserView> {
                                   gridDelegate:
                                       const SliverGridDelegateWithFixedCrossAxisCount(
                                     crossAxisCount: 1, // 2 rows
-                                    childAspectRatio: 0.9, // same as before
+                                    childAspectRatio: 0.95, // same as before
                                   ),
                                   itemBuilder: (context, index) {
                                     final product = products[index];
@@ -283,6 +283,7 @@ class _StoreDetailsUserViewState extends State<StoreDetailsUserView> {
                                           horizontal: 4,
                                         ),
                                         child: ProductCardForUser(
+                                          rating: product.rating.toString(),
                                           storeId: widget.storeId,
                                           productImage:
                                               product.images?.isNotEmpty == true

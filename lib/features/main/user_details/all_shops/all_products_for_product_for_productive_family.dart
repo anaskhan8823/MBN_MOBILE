@@ -156,6 +156,7 @@ import 'package:dalil_2020_app/core/shared/widgets/auth_appbar.dart';
 import 'package:dalil_2020_app/features/auth/presentation/city_and_country/cubit/location_cubit.dart';
 import 'package:dalil_2020_app/features/main/productive_families_details/product_details/view.dart';
 import 'package:dalil_2020_app/features/main/user_details/product_details/view.dart';
+import 'package:dalil_2020_app/features/widgets/product_card_for_user.dart';
 import 'package:dalil_2020_app/features/widgets/search_screen.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -405,13 +406,11 @@ class AllProductsForProductForProductiveFamily extends StatelessWidget {
                     const SizedBox(height: 05),
                     Expanded(
                       child: GridView.builder(
-                        padding: EdgeInsets.symmetric(horizontal: 15.w),
+                        padding: EdgeInsets.symmetric(horizontal: 04.w),
                         itemCount: Utils.items('', stateStore.stores.length),
                         gridDelegate:
                             const SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 2,
-                          childAspectRatio: 0.67,
-                        ),
+                                crossAxisCount: 2, childAspectRatio: 0.95),
                         itemBuilder: (context, index) {
                           final isEn = context.locale.languageCode == 'en';
                           final stores = stateStore.stores[index];
@@ -449,19 +448,21 @@ class AllProductsForProductForProductiveFamily extends StatelessWidget {
                             },
                             child: Padding(
                               padding: EdgeInsets.symmetric(
-                                vertical: AppSize.getHeight(8),
-                                horizontal: AppSize.getWidth(8),
+                                vertical: AppSize.getHeight(4),
+                                horizontal: AppSize.getWidth(4),
                               ),
-                              child: StoreCardForUser(
-                                phone: stores.sellerPhone ?? '',
-                                imageUrl: (stores.images?.isNotEmpty ?? false)
-                                    ? stores.images!.first.url ?? ''
+                              child: ProductCardForUser(
+                                productImage: stores.images?.isNotEmpty == true
+                                    ? stores.images![0].url ?? ''
                                     : '',
                                 rating: (stores.rating ?? 0).toString(),
-                                address: '',
-                                storeName: isEn
-                                    ? (stores.productName?.en ?? '')
-                                    : (stores.productName?.ar ?? ''),
+                                productName: isEn
+                                    ? stores.productName?.en ?? ''
+                                    : stores.productName?.ar ?? '',
+                                recentPrice: stores.price.toString(),
+                                oldPrice: stores.priceAfterDiscount.toString(),
+                                productId: stores.id!,
+                                storeId: 0,
                               ),
                             ),
                           );

@@ -115,6 +115,7 @@ class AllProductsForUserView extends StatelessWidget {
                           ));
                         },
                         storeId: 0,
+                        rating: product.rating.toString(),
                         onDeleteProduct: () {
                           cubit.deleteProductForUser(product.id ?? 0);
                         },

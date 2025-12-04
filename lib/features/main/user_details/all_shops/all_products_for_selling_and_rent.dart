@@ -2,6 +2,7 @@ import 'package:dalil_2020_app/core/shared/widgets/auth_appbar.dart';
 import 'package:dalil_2020_app/core/shared/widgets/custom_button.dart';
 import 'package:dalil_2020_app/features/auth/presentation/city_and_country/cubit/location_cubit.dart';
 import 'package:dalil_2020_app/features/main/user_details/product_details/view.dart';
+import 'package:dalil_2020_app/features/widgets/product_card_for_user.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -365,61 +366,76 @@ class AllProductsForSellingAndRent extends StatelessWidget {
                       stateStore.stores.isNotEmpty
                           ? Expanded(
                               child: GridView.builder(
-                                padding: EdgeInsets.symmetric(horizontal: 08.w),
+                                padding: EdgeInsets.symmetric(horizontal: 04.w),
                                 itemCount:
                                     Utils.items('', stateStore.stores.length),
                                 gridDelegate:
                                     const SliverGridDelegateWithFixedCrossAxisCount(
-                                        crossAxisCount: 2,
-                                        childAspectRatio: 0.73),
+                                  crossAxisCount: 2,
+                                  childAspectRatio: 0.95, // same as before
+                                ),
                                 itemBuilder: (context, index) {
                                   final isEn =
                                       context.locale.languageCode == 'en';
                                   final stores = stateStore.stores[index];
                                   return GestureDetector(
                                     onTap: () {
-                                      AppNavigator.push(StoreDetailsUserView(
-                                       mainCategoryName:
-                                            stores.category?.isNotEmpty == true
-                                                ? stores.category!.first
-                                                : '',
-                                        subCategoryName:
-                                            stores.subCategory?.isNotEmpty ==
-                                                    true
-                                                ? stores.subCategory!.first
-                                                : '',
-
-                                        address: '',
-                                        workTimes: [],
-                                        location: null,
-                                        phone: stores.sellerPhone ?? '',
-                                        storeId: stores.id ?? 0,
-                                        rating: (stores.rating ?? 0).toString(),
-                                        storeName: isEn
-                                            ? stores.productName?.en ?? ''
-                                            : stores.productName?.ar ?? '',
-                                        storeImage: [],
-                                        // stores.images?.isNotEmpty == true
-                                        //     ? stores.images!
-                                        //     : [],
-                                      ));
+                                      AppNavigator.push(
+                                        ProductDetailsUserView(
+                                          sellername:
+                                              stores.productName.toString(),
+                                          category:
+                                              stores.category?.isNotEmpty ==
+                                                      true
+                                                  ? stores.category![0]
+                                                  : '',
+                                          subCategory:
+                                              stores.subCategory?.isNotEmpty ==
+                                                      true
+                                                  ? stores.subCategory![0]
+                                                  : '',
+                                          description: isEn
+                                              ? stores.productDescription?.en ??
+                                                  ''
+                                              : stores.productDescription?.ar ??
+                                                  '',
+                                          productId: stores.id ?? 0,
+                                          productImage: stores.images ?? [],
+                                          rating:
+                                              stores.rating.toString() ?? "0",
+                                          recentPrice:
+                                              stores.price?.toString() ?? '',
+                                          productName: isEn
+                                              ? stores.productName?.en ?? ''
+                                              : stores.productName?.ar ?? '',
+                                          phone: stores.sellerPhone.toString(),
+                                          saleType: stores.saleType ?? '',
+                                          oldPrice: stores.priceAfterDiscount
+                                                  ?.toString() ??
+                                              '',
+                                          userName: stores.sellerName ?? '',
+                                        ),
+                                      );
                                     },
                                     child: Padding(
                                       padding: EdgeInsets.symmetric(
-                                        vertical: AppSize.getHeight(8),
-                                        horizontal: AppSize.getWidth(8),
+                                        vertical: AppSize.getHeight(4),
+                                        horizontal: AppSize.getWidth(4),
                                       ),
-                                      child: StoreCardForUser(
-                                        phone: stores.sellerPhone ?? '',
-                                        imageUrl:
+                                      child: ProductCardForUser(
+                                        productImage:
                                             stores.images?.isNotEmpty == true
-                                                ? stores.images![0].url!
+                                                ? stores.images![0].url ?? ''
                                                 : '',
                                         rating: (stores.rating ?? 0).toString(),
-                                        address: stores.orders.toString(),
-                                        storeName: isEn
+                                        productName: isEn
                                             ? stores.productName?.en ?? ''
                                             : stores.productName?.ar ?? '',
+                                        recentPrice: stores.price.toString(),
+                                        oldPrice: stores.priceAfterDiscount
+                                            .toString(),
+                                        productId: stores.id!,
+                                        storeId: 0,
                                       ),
                                     ),
                                   );
