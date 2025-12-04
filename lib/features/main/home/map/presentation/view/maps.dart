@@ -596,6 +596,8 @@ class _MapsViewState extends State<MapsView> {
       onTap: () {
         final isEn = context.locale.languageCode == 'en';
         AppNavigator.push(StoreDetailsUserView(
+          storedis:
+              isEn ? store.description?.en ?? '' : store.description?.ar ?? '',
           mainCategoryName: store.category![0],
           subCategoryName: store.subCategory![0],
           address: store.contactInfo?.address ?? '',

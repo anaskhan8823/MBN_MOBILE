@@ -63,6 +63,9 @@ class MyStores extends StatelessWidget {
                         onTap: () {
                           // worktimelocaion
                           AppNavigator.push(StoreDetailsUserView(
+                            storedis: isEn
+                                ? list[index].description?.en ?? ''
+                                : list[index].description?.ar ?? '',
                             mainCategoryName:
                                 list[index].category?.isNotEmpty == true
                                     ? list[index].category![0]

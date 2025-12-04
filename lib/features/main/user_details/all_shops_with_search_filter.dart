@@ -100,6 +100,9 @@ class AllShopsForUserWithSearchResult extends StatelessWidget {
                   return GestureDetector(
                     onTap: () {
                       AppNavigator.push(StoreDetailsUserView(
+                        storedis: isEn
+                            ? store.description?.en ?? ''
+                            : store.description?.ar ?? '',
                         mainCategoryName: store.category?.isNotEmpty == true
                             ? store.category![0]
                             : '',

@@ -8,6 +8,7 @@ import 'package:dalil_2020_app/features/main/controller/store_and_product_cubit/
 import 'package:dalil_2020_app/features/main/shop_owner_details/store_details/other_details.dart';
 import 'package:dalil_2020_app/features/main/shop_owner_details/store_details/view.dart';
 import 'package:dalil_2020_app/features/main/user_details/product_details/view.dart';
+import 'package:dalil_2020_app/features/main/user_details/shop_details/all_product_view_user.dart';
 import 'package:dalil_2020_app/features/widgets/custom_service_container_product_details.dart';
 import 'package:dalil_2020_app/models/store_model.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -33,6 +34,7 @@ class StoreDetailsUserView extends StatefulWidget {
     required this.storeId,
     required this.storeImage,
     required this.storeName,
+    required this.storedis,
     required this.rating,
     required this.location,
     required this.phone,
@@ -43,6 +45,8 @@ class StoreDetailsUserView extends StatefulWidget {
   });
   final List<Images> storeImage;
   final String storeName;
+  final String storedis;
+
   final String rating;
   final Location? location;
 
@@ -194,11 +198,50 @@ class _StoreDetailsUserViewState extends State<StoreDetailsUserView> {
                       color: AppColors.primaryDark,
                     ),
                     const SizedBox(height: 10),
-                    Text('Products'.tr(),
+                    Text('Store Details'.tr(),
                         style: TextStyle(
                             color: AppColors.primary,
                             fontSize: 18,
                             fontWeight: FontWeight.bold)),
+
+                    Text(widget.storedis,
+                        style: TextStyle(
+                            color: AppColors.primary,
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold)),
+                    const SizedBox(height: 10),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          'Products'.tr(),
+                          style: TextStyle(
+                            color: AppColors.primary,
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+
+                        // 👉 SEE ALL BUTTON
+                        GestureDetector(
+                          onTap: () {
+                            AppNavigator.push(AllProductsScreen(
+                              storeName: widget.storeName,
+                              phone: widget.phone,
+                              id: widget.storeId,
+                            ));
+                          },
+                          child: Text(
+                            "See All".tr(),
+                            style: TextStyle(
+                              color: AppColors.primary,
+                              fontSize: 16,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
 
                     BlocBuilder<ProductCubit, ProductState>(
                         builder: (context, state) {
@@ -229,7 +272,7 @@ class _StoreDetailsUserViewState extends State<StoreDetailsUserView> {
                             : SizedBox(
                                 height: products.length == 1
                                     ? MediaQuery.of(context).size.height * 0.3
-                                    : products.length * 62.h,
+                                    : products.length * 60.h,
                                 child: GridView.builder(
                                   scrollDirection: Axis.horizontal,
                                   padding: EdgeInsets.zero,
@@ -279,7 +322,7 @@ class _StoreDetailsUserViewState extends State<StoreDetailsUserView> {
                                       },
                                       child: Padding(
                                         padding: EdgeInsets.symmetric(
-                                          vertical: AppSize.getHeight(8),
+                                          vertical: AppSize.getHeight(4),
                                           horizontal: 4,
                                         ),
                                         child: ProductCardForUser(

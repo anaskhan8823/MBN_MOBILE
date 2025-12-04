@@ -299,6 +299,9 @@ class AllShopsForUser extends StatelessWidget {
                                             store.images?.isNotEmpty == true
                                                 ? store.images!
                                                 : [],
+                                        storedis: isEn
+                                            ? store.description?.en ?? ''
+                                            : store.description?.ar ?? '',
                                       ));
                                     },
                                     child: Padding(
