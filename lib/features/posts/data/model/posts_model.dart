@@ -89,25 +89,17 @@ class PostsWithPagination {
   PostsWithPagination({this.items, this.paginate});
 
   PostsWithPagination.fromJson(Map<String, dynamic> json) {
-    if (json['items'] != null) {
+    // ✅ data -> items
+    if (json['data'] != null) {
       items = <PostsModel>[];
-      json['items'].forEach((v) {
-        items!.add(new PostsModel.fromJson(v));
+      json['data'].forEach((v) {
+        items!.add(PostsModel.fromJson(v));
       });
     }
-    paginate = json['paginate'] != null
-        ? new PaginateModel.fromJson(json['paginate'])
-        : null;
-  }
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    if (this.items != null) {
-      data['items'] = this.items!.map((v) => v.toJson()).toList();
-    }
-    if (this.paginate != null) {
-      data['paginate'] = this.paginate!.toJson();
-    }
-    return data;
+    // ✅ pagination -> paginate
+    paginate = json['pagination'] != null
+        ? PaginateModel.fromJson(json['pagination'])
+        : null;
   }
 }

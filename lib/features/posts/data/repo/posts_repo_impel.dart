@@ -24,7 +24,7 @@ class PostsRepoImpel implements PostsRepo {
         if (categoryId != null) 'category_id': categoryId,
       });
       if (response.isSuccess) {
-        return right(PostsWithPagination.fromJson(response.data['data']));
+        return right(PostsWithPagination.fromJson(response.data));
       } else {
         return left(ServerFailure.fromResponse(response));
       }
