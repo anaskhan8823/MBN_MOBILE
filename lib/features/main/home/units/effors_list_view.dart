@@ -19,7 +19,7 @@ class EfforsList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: MediaQuery.of(context).size.height * 0.18,
+      height: MediaQuery.of(context).size.height * 0.14,
       child: BlocProvider(
         create: (_) => StoreAndProductCubit()..getDiscountCards(),
         child: BlocBuilder<StoreAndProductCubit, StoreAndProductState>(
@@ -42,35 +42,35 @@ class EfforsList extends StatelessWidget {
                     child: Padding(
                       padding: const EdgeInsets.only(left: 8.0),
                       child: Column(
+                        mainAxisSize: MainAxisSize.min,
                         children: [
                           Container(
-                            margin: EdgeInsets.only(left: AppSize.getHeight(9)),
-                            width: AppSize.getWidth(95),
-                            height: AppSize.getHeight(105),
-                            decoration: const BoxDecoration(
-                              shape: BoxShape.circle,
+                            width: 140,
+                            height: 90,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(12),
+                              color: Colors.black,
                             ),
+                            clipBehavior: Clip.antiAlias,
                             child: card.photo.isNotEmpty
                                 ? Image.network(card.photo, fit: BoxFit.cover)
                                 : Image.asset(AppIcons.sale, fit: BoxFit.cover),
                           ),
-                          SizedBox(
-                            height: 10,
-                          ),
+                          const SizedBox(height: 8),
                           Text(
-                            isEn ? card.nameEn : card.nameAr,
-                            style: kTextStyle16white.copyWith(
-                              color: AppColors.whiteAndOrangeColor,
-                              fontSize: 12,
+                            card.discount,
+                            // isEn ? card.nameEn : card.nameAr,
+                            style: const TextStyle(
+                              fontSize: 14,
                               fontWeight: FontWeight.w600,
                             ),
                           ),
-                          Text(
-                            card.discount,
-                            style: kTextStyle16white.copyWith(
-                              color: AppColors.whiteAndOrangeColor,
-                            ),
-                          ),
+                          // Text(
+                          //   card.discount,
+                          //   style: kTextStyle16white.copyWith(
+                          //     color: AppColors.whiteAndOrangeColor,
+                          //   ),
+                          // ),x
                         ],
                       ),
                     ),

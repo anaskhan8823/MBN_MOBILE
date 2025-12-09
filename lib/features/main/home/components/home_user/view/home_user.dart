@@ -67,18 +67,26 @@ class HomeUser extends StatelessWidget {
                 ),
                 Padding(
                   padding:
-                      EdgeInsets.symmetric(horizontal: AppSize.getWidth(18)),
+                      EdgeInsets.symmetric(horizontal: AppSize.getWidth(12)),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      EfforsList(),
-                      SizedBox(
-                        height: AppSize.getHeight(16),
-                      ),
                       const CustomSliderItem(),
                       SizedBox(height: AppSize.getHeight(20)),
                       Padding(
-                        padding: EdgeInsets.only(left: AppSize.getWidth(14)),
+                        padding: EdgeInsets.only(left: AppSize.getWidth(12)),
+                        child: TextSeeAll(
+                          mainText: "Discounts",
+                          showSeeAll: false,
+                          onPressed: () {},
+                        ),
+                      ),
+                      SizedBox(height: AppSize.getHeight(10)),
+                      EfforsList(),
+
+                      SizedBox(height: AppSize.getHeight(10)),
+                      Padding(
+                        padding: EdgeInsets.only(left: AppSize.getWidth(12)),
                         child: TextSeeAll(
                           mainText: "homeShopOwner.Categories",
                           showSeeAll: false,

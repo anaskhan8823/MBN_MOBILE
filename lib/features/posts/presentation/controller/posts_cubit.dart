@@ -232,7 +232,7 @@ class PostsCubit extends Cubit<PostsState> {
     emit(state.copyWith(selectedCategoryId: category));
   }
 
-  Future<void> createPost(File? imagesList, String? text) async {
+  Future<void> createPost(List<File>? imagesList, String? text) async {
     emit(state.copyWith(requestStateOfAddPost: RequestStateEnum.loading));
     final api = await postsRepo.createPost(
         images: imagesList, text: text, category: state.selectedCategoryId);

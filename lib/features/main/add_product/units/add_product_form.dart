@@ -6,28 +6,30 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../widgets/form_of_store_and_products.dart';
 import '../../controller/store_and_product_cubit/add_store_cubit.dart';
+
 class AddProductForm extends StatelessWidget {
   const AddProductForm({super.key, this.color});
-  final Color?color;
+  final Color? color;
   @override
   Widget build(BuildContext context) {
-    return
-    BlocBuilder<StoreAndProductCubit, StoreAndProductState>(
+    return BlocBuilder<StoreAndProductCubit, StoreAndProductState>(
       builder: (context, state) {
-        final cubit= context.read<StoreAndProductCubit>();
+        final cubit = context.read<StoreAndProductCubit>();
         return Column(
           spacing: 15,
           children: [
             Expanded(
               flex: 0,
-              child: Text("addProduct.fill".tr(),
-                style: TextStyle(fontSize: 12, color: AppColors.whiteAndBlackColor),
+              child: Text(
+                "addProduct.fill".tr(),
+                style: TextStyle(
+                    fontSize: 12, color: AppColors.whiteAndBlackColor),
                 textAlign: TextAlign.center,
               ),
             ),
             Expanded(
                 flex: 3,
-                child: ListView(children:[
+                child: ListView(children: [
                   Padding(
                     padding:  EdgeInsets.symmetric(horizontal: 15.w),
                     child: Container(
@@ -41,14 +43,21 @@ class AddProductForm extends StatelessWidget {
                       child:  UploadProductImage(color: color,),
                     ),
                   ),
-                  SizedBox(height: 15.h,),
+                  SizedBox(
+                    height: 15.h,
+                  ),
                   Padding(
-                    padding:EdgeInsets.symmetric(horizontal: 15.w),
-                    child: FormOfStoreAndProducts(cubit: cubit,isStore: false,color: color?? AppColors.primary,),
-                  )])),
-          ],);
+                    padding: EdgeInsets.symmetric(horizontal: 15.w),
+                    child: FormOfStoreAndProducts(
+                      cubit: cubit,
+                      isStore: false,
+                      color: color ?? AppColors.primary,
+                    ),
+                  )
+                ])),
+          ],
+        );
       },
     );
-
   }
 }

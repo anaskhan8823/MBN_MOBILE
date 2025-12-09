@@ -1,7 +1,7 @@
 class ProfileShopOwnerSummaryModel {
   String? profileName;
   String? profilePicture;
-  double? overallStoreRating;
+  int? overallStoreRating;
   int? totalStores;
   int? totalProducts;
   int? totalViews;

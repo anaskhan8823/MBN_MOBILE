@@ -362,7 +362,7 @@ class StoreAndProductCubit extends Cubit<StoreAndProductState> {
     }).toList();
     try {
       emit(EditProductLoading());
-      final response = await DioHelper.send(
+      final response = await DioHelper.put(
           "productivefamilies/update-product/$productId?_method=put",
           data: {
             if (englishName.text.isNotEmpty) "name[en]": englishName.text,
@@ -380,6 +380,24 @@ class StoreAndProductCubit extends Cubit<StoreAndProductState> {
               "category_id[]": [selectedCategoryId, selectedSubCat],
             "store_id": ''
           });
+      final data = {
+        if (englishName.text.isNotEmpty) "name[en]": englishName.text,
+        if (arabicName.text.isNotEmpty) "name[ar]": arabicName.text,
+        if (englishDisc.text.isNotEmpty) "description[en]": englishDisc.text,
+        if (arabicDisc.text.isNotEmpty) "description[ar]": arabicDisc.text,
+        if (priceBeforeDisc.text.isNotEmpty) "price": priceBeforeDisc.text,
+        if (priceAfterDisc.text.isNotEmpty)
+          "discount_value": priceAfterDisc.text,
+        if (saleType != null) "sale_type": saleType,
+        if (disType != null) "calculation_type": disType,
+        if (images != null) "image[]": multiImages,
+        if (selectedCategoryId != null && selectedSubCat != null)
+          "category_id[]": [selectedCategoryId, selectedSubCat],
+        "store_id": '',
+      };
+
+      log('DATA => $data');
+
       if (response.isSuccess) {
         AppToast.success("toasts.editSuccessProduct");
         emit(AddStoreInitial());

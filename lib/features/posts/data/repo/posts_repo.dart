@@ -17,5 +17,5 @@ abstract class PostsRepo {
   Future<Either<Failure, bool>> sendLike(int postId);
   Future<Either<Failure, List<CategoryPostModel>>> getCategories();
   Future<Either<Failure, bool>> createPost(
-      {required File? images, String? text, CategoryPostModel? category});
+      {required List<File>? images, String? text, CategoryPostModel? category});
 }

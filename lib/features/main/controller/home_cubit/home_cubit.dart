@@ -20,7 +20,7 @@ class HomeCubit extends Cubit<HomeState> {
       );
       if (response.isSuccess) {
         final ProfileShopOwnerSummaryModel list =
-        ProfileShopOwnerSummaryModel.fromJson(response.data?['data'] ?? {});
+            ProfileShopOwnerSummaryModel.fromJson(response.data?['data'] ?? {});
         emit(HomeSuccess(list));
       } else {
         ServerFailure.fromResponse(response);
@@ -33,6 +33,7 @@ class HomeCubit extends Cubit<HomeState> {
       emit(HomeInitial());
     }
   }
+
   Future<void> getProductiveDetails() async {
     try {
       emit(HomeLoading());
@@ -41,7 +42,8 @@ class HomeCubit extends Cubit<HomeState> {
       );
       if (response.isSuccess) {
         final ProfileProductiveFamiliesModel list =
-        ProfileProductiveFamiliesModel.fromJson(response.data?['data'] ?? {});
+            ProfileProductiveFamiliesModel.fromJson(
+                response.data?['data'] ?? {});
         emit(HomeProductiveSuccess(list));
       } else {
         ServerFailure.fromResponse(response);
@@ -54,5 +56,4 @@ class HomeCubit extends Cubit<HomeState> {
       emit(HomeInitial());
     }
   }
-
 }

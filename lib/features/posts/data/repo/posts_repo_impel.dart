@@ -112,19 +112,23 @@ class PostsRepoImpel implements PostsRepo {
   }
 
   @override
-  Future<Either<Failure, bool>> createPost(
-      {required File? images,
-      String? text,
-      CategoryPostModel? category}) async {
+  Future<Either<Failure, bool>> createPost({
+    required List<File>? images,
+    String? text,
+    CategoryPostModel? category,
+  }) async {
     try {
-      print('images?.path:${images?.path}');
-      MultipartFile multiImages =
-          MultipartFile.fromFileSync(images?.path ?? '');
+      // Convert each File to MultipartFile
+      List<MultipartFile> multiImages = images != null
+          ? images.map((file) => MultipartFile.fromFileSync(file.path)).toList()
+          : [];
+
       final response = await DioHelper.send(SOCIAL_NETWORK_POSTS, data: {
         "content": text,
         "category_id": category?.id,
         "image": multiImages,
       });
+
       if (response.isSuccess) {
         return right(true);
       } else {

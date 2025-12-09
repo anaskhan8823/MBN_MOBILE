@@ -61,7 +61,7 @@ class CreatePosts extends StatelessWidget {
               onTap: () {
                 context
                     .read<PostsCubit>()
-                    .createPost(uploadCubit.profileImage, englishDisc.text);
+                    .createPost(uploadCubit.imagesList, englishDisc.text);
               },
               child: Container(
                 padding:
@@ -115,9 +115,24 @@ class CreatePosts extends StatelessWidget {
                       const SizedBox(
                         height: 10,
                       ),
-                      const Center(
-                        child: UploadPhotoCard(
-                          url: '',
+                      // const Center(
+                      //   child: UploadPhotoCard(
+                      //     url: '',
+                      //   ),
+                      // ),
+                      Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 15.w),
+                        child: Container(
+                          width: double.infinity,
+                          padding: const EdgeInsets.all(10),
+                          // height: MediaQuery.of(context).size.height*0.18,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              border: Border.all(
+                                  color: AppColors.primary, width: 2)),
+                          child: UploadProductImage(
+                            color: AppColors.primary,
+                          ),
                         ),
                       ),
                       const SizedBox(

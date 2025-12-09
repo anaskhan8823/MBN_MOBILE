@@ -30,87 +30,98 @@ part '../../../widgets/stores_of_user.dart';
 
 class HomeShopOwner extends StatelessWidget {
   HomeShopOwner({super.key});
+
   final GlobalKey<ScaffoldState> _globalKey = GlobalKey<ScaffoldState>();
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: MultiBlocProvider(
-          providers: [
-            BlocProvider(
-              create: (_) => HomeCubit()..getShopOwnerSummaryDetails(),
-            ),
-            BlocProvider(
-              create: (context) => StoreAndProductCubit()..getAllStores(),
-            ),
-          ],
-          child: Scaffold(
-            key: _globalKey,
-            drawer: const CustomDrawer(),
-            body: ListView(
-              children: [
-                Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 15),
-                    child: BlocBuilder<HomeCubit, HomeState>(
-                        builder: (context, homeState) {
-                      final bool successLoadUserData = homeState is HomeSuccess;
-                      return Skeletonizer(
-                          enabled: homeState is HomeLoading,
-                          child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                const SizedBox(
-                                  height: 10,
+        providers: [
+          BlocProvider(
+            create: (_) => HomeCubit()..getShopOwnerSummaryDetails(),
+          ),
+          BlocProvider(
+            create: (_) => StoreAndProductCubit()..getAllStores(),
+          ),
+        ],
+        child: Scaffold(
+          key: _globalKey,
+          drawer: const CustomDrawer(),
+          body: ListView(
+            children: [
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 15),
+                child: BlocBuilder<HomeCubit, HomeState>(
+                  builder: (context, state) {
+                    final bool successLoadUserData = state is HomeSuccess;
+
+                    return Skeletonizer(
+                      enabled: state is HomeLoading,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const SizedBox(height: 10),
+
+                          // 🔹 User Details
+                          DetailsOfShopOwnerUser(
+                            successLoadUserData: successLoadUserData,
+                            homeState: state,
+                            onTap: () => _globalKey.currentState?.openDrawer(),
+                          ),
+
+                          const SizedBox(height: 15),
+
+                          Divider(
+                            height: 1,
+                            thickness: 2,
+                            color: AppColors.primary,
+                          ),
+                          const SizedBox(height: 20),
+
+                          const CustomSliderItem(),
+
+                          // 🔹 "My Stores" Title
+                          TextSeeAll(
+                            showSeeAll: false,
+                            mainText: "navHome.myStores",
+                            onPressed: () {
+                              AppNavigator.push(
+                                BlocProvider.value(
+                                  value: context.read<StoreAndProductCubit>(),
+                                  child: const AllStores(
+                                    hideBackButton: false,
+                                  ),
                                 ),
-                                DetailsOfShopOwnerUser(
-                                  successLoadUserData: successLoadUserData,
-                                  homeState: homeState,
-                                  onTap: () =>
-                                      _globalKey.currentState?.openDrawer(),
-                                ),
-                                const SizedBox(
-                                  height: 15,
-                                ),
-                                Divider(
-                                    height: 1,
-                                    thickness: 2,
-                                    color: AppColors.primary),
-                                const SizedBox(
-                                  height: 20,
-                                ),
-                                const CustomSliderItem(),
-                                TextSeeAll(
-                                  showSeeAll: false,
-                                  mainText: "navHome.myStores",
-                                  onPressed: () {
-                                    AppNavigator.push(BlocProvider.value(
-                                      value:
-                                          BlocProvider.of<StoreAndProductCubit>(
-                                              context),
-                                      child: const AllStores(
-                                        hideBackButton: false,
-                                      ),
-                                    ));
-                                  },
-                                ),
-                                BlocBuilder<StoreAndProductCubit,
-                                        StoreAndProductState>(
-                                    builder: (context, state) {
-                                  return StoresOfUser(
-                                    cubit: context.read<StoreAndProductCubit>(),
-                                    loading: state is AddStoreLoading,
-                                    success: state is GetStoresSuccess
-                                        ? state
-                                        : null,
-                                    successLoadUserData:
-                                        state is GetStoresSuccess,
-                                  );
-                                }),
-                              ]));
-                    }))
-              ],
-            ),
-          )),
+                              );
+                            },
+                          ),
+
+                          // 🔹 Store List
+                          BlocBuilder<StoreAndProductCubit,
+                              StoreAndProductState>(
+                            builder: (context, storeState) {
+                              return StoresOfUser(
+                                cubit: context.read<StoreAndProductCubit>(),
+                                loading: storeState is AddStoreLoading,
+                                success: storeState is GetStoresSuccess
+                                    ? storeState
+                                    : null,
+                                successLoadUserData:
+                                    storeState is GetStoresSuccess,
+                              );
+                            },
+                          ),
+                        ],
+                      ),
+                    );
+                  },
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }
