@@ -41,6 +41,7 @@ class ProductProductiveLoading extends StatelessWidget {
                     numberOfOrders: 0,
                     numberOfRating: "0",
                     numberOfViews: 0,
+                    price: '0',
                   ));
             }));
   }

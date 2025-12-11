@@ -55,10 +55,34 @@ class ProductCubit extends Cubit<ProductState> {
     }
   }
 
+  List<ProductModel> allProducts = []; // stores all fetched products
+  List<ProductModel> filteredProducts = [];
+  void searchProductsLocally(String query) {
+    if (query.isEmpty) {
+      filteredProducts = List.from(allProducts); // reset to all
+    } else {
+      filteredProducts = allProducts.where((p) {
+        final nameEn = p.productName?.en ?? '';
+        final nameAr = p.productName?.ar ?? '';
+        return nameEn.toLowerCase().contains(query.toLowerCase()) ||
+            nameAr.toLowerCase().contains(query.toLowerCase());
+      }).toList();
+    }
+    emit(GetProductsSuccess(filteredProducts));
+  }
+
   Future<void> getAllProducts() async {
     try {
       emit(ProductLoading());
-      final response = await DioHelper.get(ALL_PRODUCTS);
+      final queryParams = <String, dynamic>{};
+
+      if (search != null && search!.isNotEmpty) {
+        queryParams['search'] = search;
+      }
+      final response = await DioHelper.get(
+        ALL_PRODUCTS,
+        parameter: queryParams.isNotEmpty ? queryParams : null,
+      );
       if (isClosed) return;
       if (response.isSuccess) {
         final List<ProductModel> list = List<ProductModel>.from(
@@ -67,6 +91,8 @@ class ProductCubit extends Cubit<ProductState> {
         products.clear();
         products.addAll(list);
         downloadProductImages(list);
+        allProducts = list; // store all products
+        filteredProducts = list;
         emit(GetProductsSuccess(list));
       }
     } catch (e) {
@@ -216,9 +242,12 @@ class ProductCubit extends Cubit<ProductState> {
           await DioHelper.get("productivefamilies/product-details/$productId");
       if (isClosed) return;
       if (response.isSuccess) {
-        final List<ProductModel> list = List<ProductModel>.from(
-            (response.data?['data'] ?? [])
-                .map((e) => ProductModel.fromJson(e)));
+        final data = response.data?['data'];
+
+        final List<ProductModel> list = (data is List)
+            ? data.map((e) => ProductModel.fromJson(e)).toList()
+            : [];
+
         // products.clear();
         // products.addAll(list);
         emit(GetProductsSuccess(list));

@@ -16,6 +16,7 @@ class AddProductSalary extends StatelessWidget {
   final Color? color;
   @override
   Widget build(BuildContext context) {
+    
     final key = context.read<StepperAndNavAddProductCubit>().formKey;
     return BlocBuilder<StoreAndProductCubit, StoreAndProductState>(
       builder: (context, state) {

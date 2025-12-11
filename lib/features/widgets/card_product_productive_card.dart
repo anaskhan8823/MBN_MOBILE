@@ -13,6 +13,7 @@ class ProductProductiveCard extends StatelessWidget {
   const ProductProductiveCard(
       {super.key,
       required this.recentPrice,
+      required this.price,
       required this.productName,
       required this.numberOfOrders,
       required this.numberOfViews,
@@ -22,6 +23,8 @@ class ProductProductiveCard extends StatelessWidget {
       this.productId,
       required this.onEdit});
   final String recentPrice;
+  final String price;
+
   final num numberOfOrders;
   final num numberOfViews;
   final String productName;
@@ -73,6 +76,54 @@ class ProductProductiveCard extends StatelessWidget {
                           color: AppColors.whiteAndBlackColor, fontSize: 14.sp),
                     ),
                   ),
+                  const SizedBox(
+                    height: 4,
+                  ),
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      // CustomSvg(svg: AppSvg.delivery, width: 20),
+                      // const SizedBox(
+                      //   width: 2,
+                      // ),
+                      // Text('$numberOfOrders ',
+                      //     style: kTextStyle10WhiteAndBlack),
+                      // Text(
+                      //   "homeProductive.order".tr(),
+                      //   style: kTextStyle10WhiteAndBlack,
+                      // ),
+
+                      CustomSvg(
+                        svg: AppSvg.priceSolar,
+                        color: AppColors.primaryProductive,
+                        width: 18,
+                      ),
+                      Row(
+                        children: [
+                          Text(
+                            "${price.replaceAll(".00", "")}",
+                            style: kTextStyle10WhiteAndBlack.copyWith(
+                              decoration:
+                                  TextDecoration.lineThrough, // Strikethrough
+                            ),
+                          ),
+                          Text(
+                            "/$recentPrice",
+                            style:
+                                kTextStyle10WhiteAndBlack, // Normal current price
+                          ),
+                        ],
+                      ),
+
+                      Text(
+                        "sar".tr(),
+                        style: kTextStyle10WhiteAndBlack,
+                      ),
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 4,
+                  ),
                   Row(
                     children: [
                       CustomEyeView(
@@ -87,31 +138,34 @@ class ProductProductiveCard extends StatelessWidget {
                       ),
                     ],
                   ),
-                  Row(
-                    children: [
-                      CustomSvg(svg: AppSvg.delivery, width: 20),
-                      const SizedBox(
-                        width: 2,
-                      ),
-                      Text('$numberOfOrders ',
-                          style: kTextStyle10WhiteAndBlack),
-                      Text(
-                        "homeProductive.order".tr(),
-                        style: kTextStyle10WhiteAndBlack,
-                      ),
-                      const Spacer(),
-                      CustomSvg(
-                        svg: AppSvg.priceSolar,
-                        color: AppColors.primaryProductive,
-                        width: 20,
-                      ),
-                      Text("$recentPrice ", style: kTextStyle10WhiteAndBlack),
-                      Text(
-                        "sar".tr(),
-                        style: kTextStyle10WhiteAndBlack,
-                      ),
-                    ],
+                  const SizedBox(
+                    height: 4,
                   ),
+                  // Row(
+                  //   children: [
+                  //     // CustomSvg(svg: AppSvg.delivery, width: 20),
+                  //     // const SizedBox(
+                  //     //   width: 2,
+                  //     // ),
+                  //     // Text('$numberOfOrders ',
+                  //     //     style: kTextStyle10WhiteAndBlack),
+                  //     // Text(
+                  //     //   "homeProductive.order".tr(),
+                  //     //   style: kTextStyle10WhiteAndBlack,
+                  //     // ),
+                  //     const Spacer(),
+                  //     CustomSvg(
+                  //       svg: AppSvg.priceSolar,
+                  //       color: AppColors.primaryProductive,
+                  //       width: 20,
+                  //     ),
+                  //     Text("$recentPrice ", style: kTextStyle10WhiteAndBlack),
+                  //     Text(
+                  //       "sar".tr(),
+                  //       style: kTextStyle10WhiteAndBlack,
+                  //     ),
+                  //   ],
+                  // ),
                   const SizedBox(
                     height: 4,
                   ),

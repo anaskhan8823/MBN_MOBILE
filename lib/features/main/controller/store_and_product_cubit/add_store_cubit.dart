@@ -156,14 +156,18 @@ class StoreAndProductCubit extends Cubit<StoreAndProductState> {
     double price = double.tryParse(priceBeforeDisc.text) ?? 0;
     double disc = double.tryParse(discVal.text) ?? 0;
 
+    double finalPrice = 0;
+
     if (disType == 'fixed') {
-      priceAfterDisc.text =
-          (price - disc).clamp(0, double.infinity).toStringAsFixed(2);
+      finalPrice = (price - disc).clamp(0, double.infinity);
     } else if (disType == 'percent') {
-      priceAfterDisc.text = (price - (price * disc / 100))
-          .clamp(0, double.infinity)
-          .toStringAsFixed(2);
+      finalPrice = (price - (price * disc / 100)).clamp(0, double.infinity);
     }
+
+    // Remove trailing .00 if whole number
+    priceAfterDisc.text = finalPrice % 1 == 0
+        ? finalPrice.toInt().toString()
+        : finalPrice.toString();
   }
 
   void clearCountrySelection() {
@@ -312,9 +316,9 @@ class StoreAndProductCubit extends Cubit<StoreAndProductState> {
         "description[en]": englishDisc.text,
         "description[ar]": arabicDisc.text,
         "price": priceBeforeDisc.text,
-        "discount_value": priceAfterDisc.text,
+        "discount_value": discVal.text,
         "sale_type": saleType,
-        "sale_value": discVal,
+        "sale_value": discVal.text,
         "calculation_type": disType,
         "images[]": multiImages,
         "category_id[]": [selectedCategoryId, selectedSubCat],

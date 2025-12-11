@@ -62,10 +62,10 @@ class CustomSlider extends StatelessWidget {
                     AppSize.getHeight(disActiveDotHeight ?? 3)),
                 color: AppColors.separatingSeparator,
                 activeColor: activeColor ?? AppColors.primary,
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(24.0)),
-                activeSize: Size(AppSize.getWidth(activeDotWidth ?? 40),
-                    AppSize.getHeight(activeDotHeight ?? 3)),
+                // shape: RoundedRectangleBorder(
+                //     borderRadius: BorderRadius.circular(24.0)),
+                // activeSize: Size(AppSize.getWidth(activeDotWidth ?? 40),
+                //     AppSize.getHeight(activeDotHeight ?? 3)),
                 activeShape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(24.0)),
               ),

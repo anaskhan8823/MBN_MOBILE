@@ -42,8 +42,8 @@ class ProductModel {
         productName: json['product_name'] != null
             ? ProductName.fromJson(json['product_name'])
             : null,
-        description: json['description'] != null
-            ? ProductName.fromJson(json['description'])
+        description: json['product_description'] != null
+            ? ProductName.fromJson(json['product_description'])
             : null,
         price: json['price']?.toString(),
         priceAfterDiscount: json['price_after_discount']?.toString(),
@@ -76,7 +76,8 @@ class ProductModel {
     final Map<String, dynamic> data = {};
     data['id'] = id;
     if (productName != null) data['product_name'] = productName!.toJson();
-    if (description != null) data['description'] = description!.toJson();
+    if (description != null)
+      data['product_description'] = description!.toJson();
     data['price'] = price;
     data['price_after_discount'] = priceAfterDiscount;
     data['category'] = category;

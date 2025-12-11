@@ -17,168 +17,151 @@ part 'verify_state.dart';
 
 class VerifyCubit extends Cubit<VerifyStates> {
   final AuthRepo repo;
-  VerifyCubit(this.repo, {
+  VerifyCubit(
+    this.repo, {
     required this.dialCode,
-  required this.phoneNumber,
-    }) : super(VerifyInit());
+    required this.phoneNumber,
+  }) : super(VerifyInit());
   bool obscurePassword = true;
   void updateObscurePassword() {
     obscurePassword = !obscurePassword;
     emit(UpdateObscurePassword());
   }
-  double passStrength=0.0;
-  Color strengthColor=Colors.red;
-  void checkPasswordStrength(String pass){
-    double strength=0.0;
-    if(pass.length>=6)strength+=0.3;
-    if(pass.length>=8)strength+=1;
+
+  double passStrength = 0.0;
+  Color strengthColor = Colors.red;
+  void checkPasswordStrength(String pass) {
+    double strength = 0.0;
+    if (pass.length >= 6) strength += 0.3;
+    if (pass.length >= 8) strength += 1;
     if (RegExp(r'[A-Z]').hasMatch(pass)) strength += 0.2;
     if (RegExp(r'[0-9]').hasMatch(pass)) strength += 0.2;
     strength = strength.clamp(0.0, 1.0);
-    passStrength =strength;
+    passStrength = strength;
     if (strength < 0.3) {
       strengthColor = Colors.red;
-    }
-    else if (strength < 0.6) {
+    } else if (strength < 0.6) {
       strengthColor = AppColors.primary;
     } else {
       strengthColor = Colors.green;
     }
     emit(UpdateIndicator());
-
   }
 
   final formKey = GlobalKey<FormState>();
   final passwordController = TextEditingController();
   final oldPasswordController = TextEditingController();
   final passwordConfirmationController = TextEditingController();
-  final String phoneNumber ;
+  final bool passwordbool = false;
+  final bool oldPasswordbool = false;
+  final bool passwordConfirmationbool = false;
+  final String phoneNumber;
   final String dialCode;
-  final  otpController=TextEditingController();
-  String?otp;
-  Future<void>verifyCode()async{
+  final otpController = TextEditingController();
+  String? otp;
+  Future<void> verifyCode() async {
     emit(VerifyLoading());
-    final param = VerifyCodeParam(
-        otp: otp??'',
-        phone: phoneNumber,
-        dialCode: dialCode
-    );
+    final param =
+        VerifyCodeParam(otp: otp ?? '', phone: phoneNumber, dialCode: dialCode);
     final api = await repo.verifyCode(param);
-    api.fold(
-            (failure) {
-          if(failure.error.isEmpty){
-            String errMsg= "failure.unexpected_error".tr();
-            AppToast.error(errMsg);
-            emit(VerifyInit());
-          }
-          else if(failure.error[0].field=='general'){
-            AppToast.error(failure.error[0].message??"");
-          }
-          for (var error in failure.error) {}
-          emit(ErrorVerifyState(listOfError: failure.error));
-        },
-            (list)async{
-              final resetToken = list.resetToken??'';
-          AppToast.success("otp.success_request".tr());
-              emit(VerifySuccess());
-              AppNavigator.replace(ResetPasswordScreen(
-               phoneNumber: phoneNumber,
-               resetToken: resetToken, dialCode: dialCode,
-          ));
+    api.fold((failure) {
+      if (failure.error.isEmpty) {
+        String errMsg = "failure.unexpected_error".tr();
+        AppToast.error(errMsg);
+        emit(VerifyInit());
+      } else if (failure.error[0].field == 'general') {
+        AppToast.error(failure.error[0].message ?? "");
+      }
+      for (var error in failure.error) {}
+      emit(ErrorVerifyState(listOfError: failure.error));
+    }, (list) async {
+      final resetToken = list.resetToken ?? '';
+      AppToast.success("otp.success_request".tr());
+      emit(VerifySuccess());
+      AppNavigator.replace(ResetPasswordScreen(
+        phoneNumber: phoneNumber,
+        resetToken: resetToken,
+        dialCode: dialCode,
+      ));
+    });
+  }
 
-        }
-    );
-  }
-  Future<void>resendCode()async{
+  Future<void> resendCode() async {
     emit(VerifyLoading());
-    final param = ResendCodeParam(
-        phone: phoneNumber,
-        dialCode: dialCode
-    );
+    final param = ResendCodeParam(phone: phoneNumber, dialCode: dialCode);
     final api = await repo.resendCode(param);
-    api.fold(
-            (failure) {
-          if(failure.error.isEmpty){
-            String errMsg= "failure.unexpected_error".tr();
-            AppToast.error(errMsg);
-            emit(VerifyInit());
-          }
-          else if(failure.error[0].field=='general'){
-            AppToast.error(failure.error[0].message??"");
-          }
-          for (var error in failure.error) {}
-          emit(ErrorVerifyState(listOfError: failure.error));
-        },
-            (r)async{
-          emit(VerifyInit());
-          AppToast.success('otp.success_resend'.tr());
-        }
-    );
+    api.fold((failure) {
+      if (failure.error.isEmpty) {
+        String errMsg = "failure.unexpected_error".tr();
+        AppToast.error(errMsg);
+        emit(VerifyInit());
+      } else if (failure.error[0].field == 'general') {
+        AppToast.error(failure.error[0].message ?? "");
+      }
+      for (var error in failure.error) {}
+      emit(ErrorVerifyState(listOfError: failure.error));
+    }, (r) async {
+      emit(VerifyInit());
+      AppToast.success('otp.success_resend'.tr());
+    });
   }
-  Future<void>resetPassword(String resetToken )async{
-    if(formKey.currentState!.validate()){
+
+  Future<void> resetPassword(String resetToken) async {
+    if (formKey.currentState!.validate()) {
       emit(VerifyLoading());
       final param = ResetPasswordParam(
-        phoneNumber:phoneNumber,
+        phoneNumber: phoneNumber,
         password: passwordController.text,
         passwordConfirmation: passwordConfirmationController.text,
-        resetToken:resetToken,
+        resetToken: resetToken,
         dialCode: dialCode,
-
       );
       final api = await repo.resetPassword(param);
-      api.fold(
-              (failure) {
-            if(failure.error.isEmpty){
-              String errMsg= "failure.unexpected_error".tr();
-              AppToast.error(errMsg);
-              emit(VerifyInit());
-            }
-            else if(failure.error[0].field=='general'){
-              AppToast.error(failure.error[0].message??"");
-            }
-            for (var error in failure.error) {}
-            emit(ErrorVerifyState(listOfError: failure.error));
-          },
-              (r)async{
-                  AppToast.success('reset_password.reset_password_success');
-            emit(VerifyInit());
-            AppNavigator.push(const SignInScreen());}
-      );
+      api.fold((failure) {
+        if (failure.error.isEmpty) {
+          String errMsg = "failure.unexpected_error".tr();
+          AppToast.error(errMsg);
+          emit(VerifyInit());
+        } else if (failure.error[0].field == 'general') {
+          AppToast.error(failure.error[0].message ?? "");
+        }
+        for (var error in failure.error) {}
+        emit(ErrorVerifyState(listOfError: failure.error));
+      }, (r) async {
+        AppToast.success('reset_password.reset_password_success');
+        emit(VerifyInit());
+        AppNavigator.push(const SignInScreen());
+      });
     }
   }
-  Future<void>changePassword()async{
-    if(!formKey.currentState!.validate()){return ;}
-    if(formKey.currentState!.validate()){
+
+  Future<void> changePassword() async {
+    if (!formKey.currentState!.validate()) {
+      return;
+    }
+    if (formKey.currentState!.validate()) {
       emit(VerifyLoading());
       final param = ChangePasswordParams(
-        currentPass:oldPasswordController.text,
+        currentPass: oldPasswordController.text,
         newPass: passwordController.text,
         confirmPass: passwordConfirmationController.text,
-
       );
       final api = await repo.changePassword(param);
-      api.fold(
-              (failure) {
-            if(failure.error.isEmpty){
-              String errMsg= "failure.unexpected_error".tr();
-              AppToast.error(errMsg);
-              emit(VerifyInit());
-            }
-            else if(failure.error[0].field=='general'){
-              AppToast.error(failure.error[0].message??"");
-            }
-            for (var error in failure.error) {}
-            emit(ErrorVerifyState(listOfError: failure.error));
-          },
-              (r)async{
-                  AppToast.success('reset_password.reset_password_success');
-            emit(VerifyInit());
-            AppNavigator.push(Utils.getUser);
-              }
-      );
+      api.fold((failure) {
+        if (failure.error.isEmpty) {
+          String errMsg = "failure.unexpected_error".tr();
+          AppToast.error(errMsg);
+          emit(VerifyInit());
+        } else if (failure.error[0].field == 'general') {
+          AppToast.error(failure.error[0].message ?? "");
+        }
+        for (var error in failure.error) {}
+        emit(ErrorVerifyState(listOfError: failure.error));
+      }, (r) async {
+        AppToast.success('reset_password.reset_password_success');
+        emit(VerifyInit());
+        AppNavigator.push(Utils.getUser);
+      });
     }
   }
-
 }
-
