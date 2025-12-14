@@ -33,6 +33,7 @@ class ProductDetailsView extends StatefulWidget {
     required this.views,
     required this.onDelete,
     required this.recentPrice,
+    required this.price,
     required this.productId,
     required this.description,
     required this.onEditProduct,
@@ -50,6 +51,8 @@ class ProductDetailsView extends StatefulWidget {
   final void Function() onDelete;
   final void Function() onEditProduct;
   final String recentPrice;
+  final String price;
+
   final int productId;
 
   @override
@@ -156,9 +159,36 @@ class _ProductDetailsViewState extends State<ProductDetailsView> {
                                 fontWeight: FontWeight.bold,
                                 color: AppColors.primaryProductive)),
                         const SizedBox(width: 4),
-                        Text(widget.recentPrice.replaceAll(".00", ""),
-                            style: kTextStyle10WhiteAndBlack),
-                        Text("sar".tr(), style: kTextStyle10WhiteAndBlack),
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            CustomSvg(
+                              svg: AppSvg.priceSolar,
+                              color: AppColors.primaryProductive,
+                              width: 18,
+                            ),
+                            Row(
+                              children: [
+                                Text(
+                                  "${widget.price.replaceAll(".00", "")}",
+                                  style: kTextStyle10WhiteAndBlack.copyWith(
+                                    decoration: TextDecoration
+                                        .lineThrough, // Strikethrough
+                                  ),
+                                ),
+                                Text(
+                                  "/${widget.recentPrice}",
+                                  style:
+                                      kTextStyle10WhiteAndBlack, // Normal current price
+                                ),
+                              ],
+                            ),
+                            Text(
+                              " sar".tr(),
+                              style: kTextStyle10WhiteAndBlack,
+                            ),
+                          ],
+                        ),
                         const Spacer(),
                         CustomEyeView(
                           color: pink,

@@ -211,12 +211,12 @@ class _AllProductsForStoreShopOwnerViewState
                       child: ProductCardForShopOwner(
                         onEdit: () async {
                           List<File> files = [];
-                          // if (product.image != null &&
-                          //     product.image!.isNotEmpty) {
-                          //   files = await convertUrlsToFiles(
-                          //     product.image!.map((e) => e.url ?? '').toList(),
-                          //   );
-                          // }
+                          if (product.image != null &&
+                              product.image!.isNotEmpty) {
+                            files = await convertUrlsToFiles(
+                              product.image!.map((e) => e.url ?? '').toList(),
+                            );
+                          }
 
                           AppNavigator.push(EditProduct(
                             initialImages: files,

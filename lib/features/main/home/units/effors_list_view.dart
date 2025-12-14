@@ -58,7 +58,7 @@ class EfforsList extends StatelessWidget {
                           ),
                           const SizedBox(height: 8),
                           Text(
-                            card.discount,
+                            "${card.discount}%",
                             // isEn ? card.nameEn : card.nameAr,
                             style: const TextStyle(
                               fontSize: 14,

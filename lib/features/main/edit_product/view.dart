@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:math';
 import 'package:dalil_2020_app/constans.dart';
 import 'package:dalil_2020_app/core/helper/dialogs.dart';
 import 'package:dalil_2020_app/core/style/app_colors.dart';
@@ -121,15 +122,18 @@ class EditProduct extends StatelessWidget {
                   }
                   //the main  functions for productive
                   if (currentIndex == 1 && enterScreen == kProductiveFamilies) {
+                    print("taped1");
                     addCubit.editProductForProductive(
                         productId, uploadCubit.imagesList);
                   }
                   //the main  functions for shop owner
                   if (currentIndex == 1 && enterScreen == kShopOwner) {
+                    print("taped2");
                     addCubit.editProductForShopOwner(
                         productId!, uploadCubit.imagesListsEdit, storeId!);
                   }
                   if (currentIndex == 1 && enterScreen == kUser) {
+                    print("taped3");
                     addCubit.editProductForUser(
                         productId, uploadCubit.imagesListsEdit);
                   }

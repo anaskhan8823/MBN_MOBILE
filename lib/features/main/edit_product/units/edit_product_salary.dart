@@ -60,12 +60,12 @@ class EditProductSalary extends StatelessWidget {
                   iconStart: AppSvg.priceChangeRounded,
                   controller: cubit.priceBeforeDisc,
                 ),
-                // CustomFieldWithHint(
-                //   controller: cubit.discVal,
-                //   iconColor: color,
-                //   hintText: discvalue.toString(),
-                //   iconStart: AppSvg.discountFill,
-                // ),
+                CustomFieldWithHint(
+                  controller: cubit.discVal,
+                  iconColor: color,
+                  hintText: discvalue.toString(),
+                  iconStart: AppSvg.discountFill,
+                ),
                 // CustomDropButton(
                 //   dropButton: DropdownButton<String>(
                 //     style: const TextStyle(color: Colors.white),

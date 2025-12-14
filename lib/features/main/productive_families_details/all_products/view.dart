@@ -147,6 +147,7 @@ class AllProductsProductiveFamiliesView extends StatelessWidget {
       BuildContext context, ProductCubit cubit, product, bool isEn) {
     AppNavigator.push(
       ProductDetailsView(
+        price: product.priceAfterDiscount ?? '',
         onEditProduct: () => _openEditProduct(context, product),
         description: isEn
             ? product.description?.en ?? ''
