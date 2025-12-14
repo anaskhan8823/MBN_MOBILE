@@ -7,7 +7,7 @@ class PostsModel {
   String? content;
   CategoryPostModel? category;
   User? user;
-  String? image;
+  List<dynamic>? image;
   int? likesCount;
   int? commentsCount;
   bool? isLiked;
@@ -33,7 +33,7 @@ class PostsModel {
         ? new CategoryPostModel.fromJson(json['category'])
         : null;
     user = json['user'] != null ? new User.fromJson(json['user']) : null;
-    image = json['image'];
+    image = json['images'];
     likesCount = json['likes_count'];
     commentsCount = json['comments_count'];
     isLiked = json['is_liked'];

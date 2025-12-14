@@ -126,7 +126,7 @@ class PostsRepoImpel implements PostsRepo {
       final response = await DioHelper.send(SOCIAL_NETWORK_POSTS, data: {
         "content": text,
         "category_id": category?.id,
-        "image": multiImages,
+        "images[]": multiImages,
       });
 
       if (response.isSuccess) {

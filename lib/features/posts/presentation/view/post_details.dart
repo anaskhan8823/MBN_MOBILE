@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -42,35 +43,9 @@ class _PostDetailsState extends State<PostDetails> {
               child: SingleChildScrollView(
                 child: Column(
                   children: [
-                    CachedNetworkImage(
-                        imageUrl: cubit.state.currentPost?.image ?? '',
-                        placeholder: (context, url) => const Center(
-                              child: CupertinoActivityIndicator(),
-                            ),
-                        imageBuilder: (context, imageProvider) {
-                          WidgetsBinding.instance.addPostFrameCallback((_) {
-                            setState(() {
-                              failedToGetImage = false;
-                            });
-                          });
-                          return Container(
-                            width: MediaQuery.of(context).size.width,
-                            height: 150,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(16),
-                              image: DecorationImage(
-                                  image: imageProvider, fit: BoxFit.fill),
-                            ),
-                          );
-                        },
-                        errorWidget: (context, url, error) {
-                          WidgetsBinding.instance.addPostFrameCallback((_) {
-                            setState(() {
-                              failedToGetImage = true;
-                            });
-                          });
-                          return Container();
-                        }),
+                    const SizedBox(height: 10),
+                    _buildPostImageSlider(),
+                    const SizedBox(height: 10),
                     const SizedBox(
                       height: 10,
                     ),
@@ -348,6 +323,44 @@ class _PostDetailsState extends State<PostDetails> {
           ],
         );
       }),
+    );
+  }
+
+  Widget _buildPostImageSlider() {
+    final images = context.read<PostsCubit>().state.currentPost?.image;
+    if (images == null || images.isEmpty || failedToGetImage) {
+      return const SizedBox.shrink();
+    }
+
+    return CarouselSlider.builder(
+      itemCount: images.length,
+      itemBuilder: (context, index, realIndex) {
+        return CachedNetworkImage(
+          imageUrl: images[index],
+          placeholder: (context, url) =>
+              const Center(child: CupertinoActivityIndicator()),
+          imageBuilder: (context, imageProvider) {
+            return Container(
+              width: double.infinity,
+              margin: const EdgeInsets.symmetric(horizontal: 4),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(16),
+                image: DecorationImage(image: imageProvider, fit: BoxFit.cover),
+              ),
+            );
+          },
+          errorWidget: (context, url, error) => Container(
+            color: Colors.grey[300],
+            child: const Icon(Icons.error),
+          ),
+        );
+      },
+      options: CarouselOptions(
+        height: 250,
+        viewportFraction: 0.9,
+        enableInfiniteScroll: false,
+        enlargeCenterPage: true,
+      ),
     );
   }
 
