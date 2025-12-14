@@ -24,7 +24,9 @@ class GoogleAuthHelper {
       );
 
       final userCredential = await _auth.signInWithCredential(credential);
-      print(userCredential.user);
+      String? idToken = await userCredential.user!.getIdToken();
+      print(idToken);
+      print(userCredential.user!.getIdToken());
       return userCredential.user;
     } catch (e) {
       debugPrint('Google Sign-In Error: $e');

@@ -12,6 +12,7 @@ String RESET_PASSWORD = 'auth/reset-password';
 String CHANGE_PASSWORD = 'profile/change-password?_method=put';
 String COUNTRY_AND_CODE = 'location/countries';
 String CITY_AND_ID = 'location/cities';
+String NEIGHBORHOODS = 'location/neighborhoods';
 String MY_ORDERS = 'orders/my-orders';
 String SOCIAL_NETWORK_POSTS = 'social-network/posts';
 String SOCIAL_NETWORK_CATEGORIES = 'social-network/categories';

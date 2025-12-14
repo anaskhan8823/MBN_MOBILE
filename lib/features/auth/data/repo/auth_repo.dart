@@ -10,9 +10,10 @@ import '../params/sign_up_param.dart';
 import '../params/sign_in_param.dart';
 import '../params/verif_code_param.dart';
 
-abstract class AuthRepo{
+abstract class AuthRepo {
   Future<Either<Failure, bool>> signIn(SignInParam param);
   Future<Either<Failure, UserModel>> signUp(SignUpParam param);
+
   Future<Either<Failure, bool>> forgetPassword(ForgetPasswordParam param);
   Future<Either<Failure, bool>> resendCode(ResendCodeParam param);
   Future<Either<Failure, VerifyModel>> verifyCode(VerifyCodeParam param);

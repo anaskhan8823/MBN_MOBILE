@@ -15,6 +15,7 @@ import '../../../../models/verify_reset_token_model.dart';
 import '../params/change_password_params.dart';
 import '../params/sign_up_param.dart';
 import 'auth_repo.dart';
+
 class AthRepoImpel implements AuthRepo {
   @override
   Future<Either<Failure, bool>> signIn(param) async {
@@ -27,13 +28,10 @@ class AthRepoImpel implements AuthRepo {
         Utils.cacheUser(response);
         CachHelper.saveData();
         return right(true);
-      }
-      else {
+      } else {
         final errorModel = ErrorModel.fromJson(response.data);
-        return left(ServerFailure(
-            'Error occurred',
-            error: errorModel.errors ?? []
-        ));
+        return left(
+            ServerFailure('Error occurred', error: errorModel.errors ?? []));
       }
     } catch (e) {
       final failure = ServerFailure.fromCatchError(e);
@@ -53,8 +51,7 @@ class AthRepoImpel implements AuthRepo {
         Utils.cacheUser(response);
         CachHelper.saveData();
         return right(UserModel.fromJson(response.data["data"]));
-      }
-      else {
+      } else {
         return left(ServerFailure.fromResponse(response));
       }
     } catch (e) {
@@ -64,18 +61,15 @@ class AthRepoImpel implements AuthRepo {
     }
   }
 
-
   @override
   Future<Either<Failure, bool>> forgetPassword(
       ForgetPasswordParam param) async {
     try {
-      final response = await DioHelper.send(FORGET_PASSWORD,
-          data: param.toJson()
-      );
+      final response =
+          await DioHelper.send(FORGET_PASSWORD, data: param.toJson());
       if (response.isSuccess) {
         return (right(true));
-      }
-      else {
+      } else {
         return left(ServerFailure.fromResponse(response));
       }
     } catch (e) {
@@ -88,13 +82,10 @@ class AthRepoImpel implements AuthRepo {
   @override
   Future<Either<Failure, bool>> resendCode(ResendCodeParam param) async {
     try {
-      final response = await DioHelper.send(RESEND_CODE,
-          data: param.toJson()
-      );
+      final response = await DioHelper.send(RESEND_CODE, data: param.toJson());
       if (response.isSuccess) {
         return (right(true));
-      }
-      else {
+      } else {
         return left(ServerFailure.fromResponse(response));
       }
     } catch (e) {
@@ -107,14 +98,10 @@ class AthRepoImpel implements AuthRepo {
   @override
   Future<Either<Failure, VerifyModel>> verifyCode(VerifyCodeParam param) async {
     try {
-      final response = await DioHelper.send(
-          VERIFICATION,
-          data: param.toJson()
-      );
+      final response = await DioHelper.send(VERIFICATION, data: param.toJson());
       if (response.isSuccess) {
         return (right(VerifyModel.fromJson(response.data['data'])));
-      }
-      else {
+      } else {
         return left(ServerFailure.fromResponse(response));
       }
     } catch (e) {
@@ -127,14 +114,11 @@ class AthRepoImpel implements AuthRepo {
   @override
   Future<Either<Failure, bool>> resetPassword(ResetPasswordParam param) async {
     try {
-      final response = await DioHelper.send(
-          RESET_PASSWORD,
-          data: param.toJson()
-      );
+      final response =
+          await DioHelper.send(RESET_PASSWORD, data: param.toJson());
       if (response.isSuccess) {
         return (right(true));
-      }
-      else {
+      } else {
         return left(ServerFailure.fromResponse(response));
       }
     } catch (e) {
@@ -148,14 +132,11 @@ class AthRepoImpel implements AuthRepo {
   Future<Either<Failure, bool>> changePassword(
       ChangePasswordParams param) async {
     try {
-      final response = await DioHelper.send(
-          CHANGE_PASSWORD,
-          data: param.toJson()
-      );
+      final response =
+          await DioHelper.send(CHANGE_PASSWORD, data: param.toJson());
       if (response.isSuccess) {
         return (right(true));
-      }
-      else {
+      } else {
         return left(ServerFailure.fromResponse(response));
       }
     } catch (e) {

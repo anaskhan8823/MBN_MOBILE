@@ -61,59 +61,60 @@ class CategoryView extends StatelessWidget {
                       label: locCubit.selectedCountry ??
                           context.tr('sign_up.country'),
                     ),
-                    // : SizedBox(),
 
                     const SizedBox(height: 10),
 
                     /// ------------------ CITY ------------------
+                    if (locCubit.countryId != null &&
+                        cubit.country.text.isNotEmpty) ...[
+                      CityAndCountryDropButton(
+                        label:
+                            locCubit.selectedCity ?? context.tr('sign_up.city'),
+                        padding: const EdgeInsets.only(right: 12),
+                        value: locCubit.cityId,
+                        onChanged: (int? value) async {
+                          if (value != null) {
+                            final cityName = locCubit.cityModel
+                                .firstWhere((c) => c.id == value)
+                                .name;
+                            locCubit.changeCityAndId(cityName, value);
 
-                    if (locCubit.countryId != null &&
-                        cubit.country.text.isNotEmpty) ...[
-                      // product
-                      //     ?
-                      CityAndCountryDropButton(
-                        label:
-                            locCubit.selectedCity ?? context.tr('sign_up.city'),
-                        padding: const EdgeInsets.only(right: 12),
-                        value: locCubit.cityId,
-                        onChanged: (int? value) {
-                          if (value != null) {
-                            locCubit.cityId = value;
-                            final cityName = locCubit.cityModel
-                                .firstWhere((c) => c.id == value)
-                                .name;
-                            locCubit.selectedCity = cityName;
-                            locCubit.changeCityAndId(cityName, value);
+                            locCubit.clearAreaSelection();
+                            // fetch neighborhoods for the selected city
+                            await locCubit.fetchNeighborhoodsByCity(value);
                           }
                         },
                         cubit: locCubit,
                       ),
-                      SizedBox(height: 10),
-                      // : SizedBox()
+                      const SizedBox(height: 10),
                     ],
-                    if (locCubit.countryId != null &&
-                        cubit.country.text.isNotEmpty) ...[
-                      // product
-                      //     ?
-                      CityAndCountryDropButton(
-                        label:
-                            locCubit.selectedCity ?? context.tr('sign_up.city'),
-                        padding: const EdgeInsets.only(right: 12),
-                        value: locCubit.cityId,
+
+                    /// ------------------ NEIGHBORHOODS ----------------
+                    if (locCubit.cityId != null) ...[
+                      DropdownButton<int>(
+                        isExpanded: true,
+                        value: locCubit.areaid, // <-- corrected field name
+                        hint: Text(locCubit.selectedarea ??
+                            context.tr(
+                                'sign_up.area')), // <-- corrected field name
+                        items: locCubit.neighborhoods.map((neighborhood) {
+                          return DropdownMenuItem<int>(
+                            value: neighborhood.id,
+                            child: Text(neighborhood.name ?? 'No Name'),
+                          );
+                        }).toList(),
                         onChanged: (int? value) {
                           if (value != null) {
-                            locCubit.cityId = value;
-                            final cityName = locCubit.cityModel
-                                .firstWhere((c) => c.id == value)
+                            final selectedNeighborhood = locCubit.neighborhoods
+                                .firstWhere((n) => n.id == value)
                                 .name;
-                            locCubit.selectedCity = cityName;
-                            locCubit.changeCityAndId(cityName, value);
+                            locCubit.areaid = value; // <-- corrected field name
+                            locCubit.selectedarea =
+                                selectedNeighborhood; // <-- corrected field name
+                            locCubit.emit(ChangePlace()); // update UI
                           }
                         },
-                        cubit: locCubit,
                       ),
-                      SizedBox(height: 10),
-                      // : SizedBox()
                     ],
 
                     /// ------------------ CATEGORY ------------------
