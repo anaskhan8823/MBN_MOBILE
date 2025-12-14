@@ -91,6 +91,30 @@ class CategoryView extends StatelessWidget {
                       SizedBox(height: 10),
                       // : SizedBox()
                     ],
+                    if (locCubit.countryId != null &&
+                        cubit.country.text.isNotEmpty) ...[
+                      // product
+                      //     ?
+                      CityAndCountryDropButton(
+                        label:
+                            locCubit.selectedCity ?? context.tr('sign_up.city'),
+                        padding: const EdgeInsets.only(right: 12),
+                        value: locCubit.cityId,
+                        onChanged: (int? value) {
+                          if (value != null) {
+                            locCubit.cityId = value;
+                            final cityName = locCubit.cityModel
+                                .firstWhere((c) => c.id == value)
+                                .name;
+                            locCubit.selectedCity = cityName;
+                            locCubit.changeCityAndId(cityName, value);
+                          }
+                        },
+                        cubit: locCubit,
+                      ),
+                      SizedBox(height: 10),
+                      // : SizedBox()
+                    ],
 
                     /// ------------------ CATEGORY ------------------
                     // DropdownButtonFormField<int>(

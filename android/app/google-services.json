@@ -1,26 +1,44 @@
 {
   "project_info": {
-    "project_number": "1093449475449",
-    "project_id": "dalil-2020-1717d",
-    "storage_bucket": "dalil-2020-1717d.firebasestorage.app"
+    "project_number": "992388986914",
+    "project_id": "dalil-549d3",
+    "storage_bucket": "dalil-549d3.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:1093449475449:android:8c4f6652dcda01ae577ba8",
+        "mobilesdk_app_id": "1:992388986914:android:2497a6a79ad0d6e7c9727b",
         "android_client_info": {
           "package_name": "com.dalil.dalil_2020.dalil_2020_app"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "992388986914-9f0apm6e13p7de3dq7tdg1q054etim67.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.dalil.dalil_2020.dalil_2020_app",
+            "certificate_hash": "756bb60c1787d8f7fa6f2e0b3b1c62e3a2ff4e4f"
+          }
+        },
+        {
+          "client_id": "992388986914-ud7oj4hraq3p6p2bpqjgd95h52cr5472.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
-          "current_key": "AIzaSyBBinFrnC1fx-l_OTRrW2lfEIJakFVUOaY"
+          "current_key": "AIzaSyBtv8lN1e6wpecUbXSph42DltTDrLtxh5o"
         }
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "992388986914-ud7oj4hraq3p6p2bpqjgd95h52cr5472.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }

@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1093449475449",
+    "project_id": "dalil-2020-1717d",
+    "storage_bucket": "dalil-2020-1717d.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1093449475449:android:8c4f6652dcda01ae577ba8",
+        "android_client_info": {
+          "package_name": "com.dalil.dalil_2020.dalil_2020_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBBinFrnC1fx-l_OTRrW2lfEIJakFVUOaY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -8,6 +8,7 @@ import 'package:dalil_2020_app/features/main/controller/store_and_product_cubit/
 import 'package:dalil_2020_app/features/main/home/contact/presentation/controller/manager_chat_cubit.dart';
 import 'package:dalil_2020_app/features/main/home/contact/presentation/view/details_of_chat.dart';
 import 'package:dalil_2020_app/features/main/home/map/presentation/control/map_stores_cubit.dart';
+import 'package:dalil_2020_app/features/posts/presentation/widget/call.dart';
 import 'package:dalil_2020_app/features/widgets/comments_product_section.dart';
 import 'package:dalil_2020_app/features/widgets/customOutlineButton.dart';
 import 'package:dalil_2020_app/features/widgets/custom_service_container_product_details.dart';
@@ -295,29 +296,39 @@ class _ProductDetailsUserViewState extends State<ProductDetailsUserView> {
                       spacing: 10,
                       children: [
                         Expanded(
-                            child: CategoryButton(
-                                title: "Call",
-                                svg: Icon(
-                                  Icons.call,
-                                  color: AppColors.whiteAndOrangeColor,
-                                ))),
-                        Expanded(
+                            child: GestureDetector(
+                          onTap: () {
+                            makeCall("+966530513564");
+                          },
                           child: CategoryButton(
-                              title: "Location",
+                              title: "Call",
                               svg: Icon(
-                                Icons.location_pin,
+                                Icons.call,
                                 color: AppColors.whiteAndOrangeColor,
                               )),
-                        ),
+                        )),
+                        // Expanded(
+                        //   child: CategoryButton(
+                        //       title: "Location",
+                        //       svg: Icon(
+                        //         Icons.location_pin,
+                        //         color: AppColors.whiteAndOrangeColor,
+                        //       )),
+                        // ),
                         Expanded(
-                          child: CategoryButton(
-                              title: "WhatsApp",
-                              svg: CustomSvg(
-                                svg: AppSvg.store,
-                                height: 20.h,
-                                width: 30.w,
-                                color: AppColors.whiteAndOrangeColor,
-                              )),
+                          child: GestureDetector(
+                            onTap: () {
+                              openWhatsApp("+966530513564");
+                            },
+                            child: CategoryButton(
+                                title: "WhatsApp",
+                                svg: CustomSvg(
+                                  svg: AppSvg.store,
+                                  height: 20.h,
+                                  width: 30.w,
+                                  color: AppColors.whiteAndOrangeColor,
+                                )),
+                          ),
                         )
                       ],
                     ),
