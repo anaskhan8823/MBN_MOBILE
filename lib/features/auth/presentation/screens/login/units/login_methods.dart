@@ -10,20 +10,18 @@ class LoginMethods extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          CardSignInMethods(
-            method: AppSvg.appleLogin,
-          ),
-          CardSignInMethods(
-            method: AppSvg.googleLogin,
-          ),
-          CardSignInMethods(
-              image: Image.asset("assets/images/nafaz.png",fit: BoxFit.cover,
-              height:AppSize.getHeight(20),
-              )
-          ),
-        ]);
+    return Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+      // CardSignInMethods(
+      //   method: AppSvg.appleLogin,
+      // ),
+      CardSignInMethods(
+        method: AppSvg.googleLogin,
+      ),
+      // CardSignInMethods(
+      //     image: Image.asset("assets/images/nafaz.png",fit: BoxFit.cover,
+      //     height:AppSize.getHeight(20),
+      //     )
+      // ),
+    ]);
   }
 }
