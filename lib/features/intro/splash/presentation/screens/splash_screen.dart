@@ -1,4 +1,7 @@
 import 'package:dalil_2020_app/core/cache/cache_helper.dart';
+import 'package:dalil_2020_app/core/cache/cache_keys.dart';
+import 'package:dalil_2020_app/features/auth/presentation/screens/login/view.dart';
+import 'package:dalil_2020_app/features/main/home/nav_user_view.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import '../../../../../core/app_assets.dart';
@@ -22,25 +25,25 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   Future<void> _navigateBasedOnState() async {
-    print(CachHelper.isAuth );
-    // final String? token = await CachHelper.isAuth;get('token');
-    if (CachHelper.isAuth==false ) {
-      await Future.delayed(const Duration(seconds: 3));
-      /// TODO: navigate to onboarding
+    await Future.delayed(const Duration(seconds: 3));
+
+    final bool onboardingDone =
+        CachHelper.prefs.getBool(CacheKeys.onboardingDone) ?? false;
+
+    if (!onboardingDone) {
+      /// FIRST TIME → VIDEO
       AppNavigator.remove(const OnBoardingScreen());
     } else {
-      final UserModel? user = await getUser();
-      await Future.delayed(const Duration(seconds: 3));
-      /// TODO: navigate to home
-      AppNavigator.push(OnBoardingScreen());
-      // AppNavigator.remove(
-      //   user != null ? HomeLayoutScreen() : OnboardingScreen(),
-      // );
+      /// NOT FIRST TIME
+      AppNavigator.remove(
+        CachHelper.isAuth ? NavUserView() : SignInScreen(),
+      );
     }
   }
 
   Future<UserModel?> getUser() async {
     final userCubit = UserCubit.get(context);
+
     /// TODO: GET USER DATA
     // await userCubit.getUser();
     return userCubit.user;
@@ -50,6 +53,7 @@ class _SplashScreenState extends State<SplashScreen> {
     final ctx = AppNavigator.key.currentContext;
     return UserCubit.get(ctx!).user != null;
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

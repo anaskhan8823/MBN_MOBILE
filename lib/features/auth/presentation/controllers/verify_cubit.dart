@@ -23,6 +23,25 @@ class VerifyCubit extends Cubit<VerifyStates> {
     required this.phoneNumber,
   }) : super(VerifyInit());
   bool obscurePassword = true;
+  bool obscureOldPassword = true;
+  bool obscureNewPassword = true;
+  bool obscureConfirmPassword = true;
+
+  void toggleOldPassword() {
+    obscureOldPassword = !obscureOldPassword;
+    emit(UpdateObscurePassword());
+  }
+
+  void toggleNewPassword() {
+    obscureNewPassword = !obscureNewPassword;
+    emit(UpdateObscurePassword());
+  }
+
+  void toggleConfirmPassword() {
+    obscureConfirmPassword = !obscureConfirmPassword;
+    emit(UpdateObscurePassword());
+  }
+
   void updateObscurePassword() {
     obscurePassword = !obscurePassword;
     emit(UpdateObscurePassword());

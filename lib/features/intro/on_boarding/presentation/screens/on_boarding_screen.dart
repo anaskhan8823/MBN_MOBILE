@@ -27,18 +27,16 @@ class OnBoardingScreen extends StatelessWidget {
                     width: double.infinity,
                     height: double.infinity,
                   ),
-
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: TextButton(
-                    onPressed: () {
-                   OnBoardingCubit.get(context).navigateToHome();
-                     },
-                    style:ButtonStyle(
-                      textStyle:WidgetStatePropertyAll(kTextStyle16Orange.copyWith(fontSize:22))
-                    ),
-                    child: Text( "skip".tr())
-                  ),
+                      onPressed: () {
+                        cubit.skipVideo();
+                      },
+                      style: ButtonStyle(
+                          textStyle: WidgetStatePropertyAll(
+                              kTextStyle16Orange.copyWith(fontSize: 22))),
+                      child: Text("skip".tr())),
                 ),
               ],
             ),

@@ -12,4 +12,5 @@ class CacheKeys {
   static final String fcmToken = 'fcm_token';
 
   static final String firstUse = 'first_use';
+  static const String onboardingDone = 'onboarding_done';
 }

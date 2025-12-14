@@ -15,6 +15,7 @@ class CachHelper {
   static String? theme;
   static String? countryCode;
   static String? lang;
+  static String? firstUse;
 
   static bool get isAuth => token?.isNotEmpty == true;
 
